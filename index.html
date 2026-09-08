@@ -1,0 +1,3313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FMC India 2 - SIP Incentive Calculator</title>
+
+<style>
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f3f6f5;
+    color: #222;
+    line-height: 1.5;
+}
+
+.container {
+    max-width: 1180px;
+    margin: 25px auto;
+    padding: 0 15px 30px;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header {
+    background: linear-gradient(135deg, #0b5d3b, #08754a);
+    color: #fff;
+    padding: 30px 20px;
+    border-radius: 14px 14px 0 0;
+    text-align: center;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 29px;
+    font-weight: 700;
+}
+
+.header p {
+    margin: 8px 0 0;
+    font-size: 14px;
+    opacity: 0.95;
+}
+
+.header-badge {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 6px 15px;
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.card {
+    background: #fff;
+    margin-top: 18px;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+}
+
+.card h2 {
+    margin: 0 0 18px;
+    color: #0b5d3b;
+    font-size: 20px;
+    border-left: 4px solid #0b5d3b;
+    padding-left: 10px;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 7px;
+    color: #333;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px 13px;
+    border: 1px solid #cfd5d2;
+    border-radius: 7px;
+    font-size: 14px;
+    background: #fff;
+    color: #222;
+    transition: 0.2s;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: #0b5d3b;
+    box-shadow: 0 0 0 2px rgba(11,93,59,0.08);
+}
+
+input::placeholder {
+    color: #999;
+}
+
+
+/* =========================================================
+   SIP SUMMARY
+========================================================= */
+
+.sip-summary {
+    margin-top: 20px;
+    padding: 18px;
+    background: #eaf5ef;
+    border: 1px solid #c4dfd0;
+    border-radius: 9px;
+}
+
+.sip-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.sip-box {
+    background: #fff;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+}
+
+.sip-box span {
+    display: block;
+    color: #666;
+    font-size: 12px;
+    margin-bottom: 6px;
+}
+
+.sip-box strong {
+    display: block;
+    color: #0b5d3b;
+    font-size: 21px;
+}
+
+
+/* =========================================================
+   ROLE SECTION
+========================================================= */
+
+.module {
+    display: none;
+}
+
+.module.active {
+    display: block;
+}
+
+.scheme-note {
+    background: #fff8df;
+    border-left: 5px solid #e2b400;
+    padding: 13px 15px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    border-radius: 4px;
+}
+
+
+/* =========================================================
+   TABLES
+========================================================= */
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 680px;
+}
+
+th {
+    background: #0b5d3b;
+    color: #fff;
+    padding: 12px 9px;
+    font-size: 13px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+td {
+    padding: 11px 9px;
+    border-bottom: 1px solid #e1e5e3;
+    text-align: center;
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+td:first-child {
+    text-align: left;
+    font-weight: 700;
+}
+
+tbody tr:hover {
+    background: #f8fbf9;
+}
+
+.kpi-name {
+    color: #222;
+}
+
+.weight {
+    font-weight: 700;
+    color: #0b5d3b;
+}
+
+.sip-allocation {
+    font-weight: 700;
+    color: #333;
+}
+
+.percent {
+    font-weight: 700;
+}
+
+.multiplier {
+    font-weight: 700;
+    color: #0b5d3b;
+}
+
+.payout {
+    font-weight: 700;
+}
+
+.total-row {
+    background: #e8f4ed;
+}
+
+.total-row td {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.total-label {
+    text-align: right !important;
+}
+
+
+/* =========================================================
+   MATRIX DISPLAY
+========================================================= */
+
+.matrix-section {
+    margin-top: 25px;
+}
+
+.matrix-title {
+    color: #0b5d3b;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 20px 0 10px;
+}
+
+.matrix-table {
+    min-width: 450px;
+}
+
+.matrix-table th {
+    background: #3f6f5b;
+}
+
+.matrix-table td {
+    padding: 8px;
+}
+
+
+/* =========================================================
+   RESULT
+========================================================= */
+
+.result-card {
+    margin-top: 20px;
+}
+
+.result-summary {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-top: 20px;
+}
+
+.result-box {
+    padding: 22px;
+    border-radius: 10px;
+    text-align: center;
+    background: #e9f5ef;
+    border: 1px solid #c2dfce;
+}
+
+.result-box span {
+    display: block;
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 7px;
+}
+
+.result-box strong {
+    display: block;
+    color: #0b5d3b;
+    font-size: 28px;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.eligibility {
+    text-align: center;
+    margin-top: 15px;
+    padding: 11px;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.eligible {
+    background: #e7f5ec;
+    color: #0b5d3b;
+}
+
+.not-eligible {
+    background: #fdecec;
+    color: #a00000;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.button-area {
+    text-align: center;
+    margin: 25px 0;
+}
+
+button {
+    border: none;
+    border-radius: 7px;
+    padding: 13px 28px;
+    margin: 5px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    color: #fff;
+    background: #0b5d3b;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #08482e;
+    transform: translateY(-1px);
+}
+
+button.secondary {
+    background: #555;
+}
+
+button.secondary:hover {
+    background: #333;
+}
+
+button.print-btn {
+    background: #1266a3;
+}
+
+button.print-btn:hover {
+    background: #0c4f7e;
+}
+
+
+/* =========================================================
+   TERMS
+========================================================= */
+
+.terms {
+    background: #fff;
+    border-top: 4px solid #0b5d3b;
+}
+
+.terms ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.terms li {
+    margin-bottom: 8px;
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+    text-align: center;
+    padding: 15px;
+    color: #777;
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 850px) {
+
+    .form-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .container {
+        margin: 8px auto;
+        padding: 0 8px 20px;
+    }
+
+    .header {
+        padding: 23px 15px;
+    }
+
+    .header h1 {
+        font-size: 22px;
+    }
+
+    .card {
+        padding: 17px;
+        border-radius: 9px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sip-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .result-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .card h2 {
+        font-size: 18px;
+    }
+
+    table {
+        min-width: 680px;
+    }
+
+    button {
+        width: 90%;
+        margin: 5px auto;
+    }
+}
+
+
+/* =========================================================
+   PRINT
+========================================================= */
+
+@media print {
+
+    @page {
+        size: A4;
+        margin: 12mm;
+    }
+
+    body {
+        background: #fff;
+        font-size: 11px;
+    }
+
+    .container {
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .header {
+        box-shadow: none;
+        border-radius: 0;
+        padding: 18px;
+    }
+
+    .card {
+        box-shadow: none;
+        border: 1px solid #ddd;
+        margin-top: 10px;
+        padding: 15px;
+        page-break-inside: avoid;
+    }
+
+    .button-area {
+        display: none;
+    }
+
+    input,
+    select {
+        border: none;
+        padding: 0;
+        appearance: none;
+        background: transparent;
+    }
+
+    .module {
+        display: none !important;
+    }
+
+    .module.active {
+        display: block !important;
+    }
+
+    table {
+        min-width: 0;
+    }
+
+    th,
+    td {
+        padding: 7px 5px;
+        font-size: 10px;
+    }
+
+    .terms {
+        page-break-inside: avoid;
+    }
+
+    .footer {
+        display: none;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<div class="container">
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<div class="header">
+
+    <h1>FMC India 2</h1>
+
+    <p>SIT Incentive Calculator</p>
+
+    <div class="header-badge">
+        9 Months Incentive Calculation
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     EMPLOYEE DETAILS
+===================================================== -->
+
+<div class="card">
+
+    <h2>Employee Details</h2>
+
+    <div class="form-grid">
+
+        <div class="form-group">
+
+            <label for="employeeName">
+                Employee Name
+            </label>
+
+            <input
+                type="text"
+                id="employeeName"
+                placeholder="Enter employee name"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="employeeId">
+                Employee ID
+            </label>
+
+            <input
+                type="text"
+                id="employeeId"
+                placeholder="Enter employee ID"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="roleType">
+                Role Type
+            </label>
+
+            <select
+                id="roleType"
+                onchange="roleChanged()"
+            >
+
+                <option value="">
+                    Select Role Type
+                </option>
+
+                <option value="sales">
+                    Sales
+                </option>
+
+                <option value="marketing">
+                    Marketing
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="hierarchy">
+                Hierarchy
+            </label>
+
+            <select
+                id="hierarchy"
+                onchange="calculate()"
+            >
+
+                <option value="">
+                    Select Hierarchy
+                </option>
+
+                <option value="sbu">
+                    SBU & Division
+                </option>
+
+                <option value="zone">
+                    Zone / Region / Territory
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     BASE SIP
+===================================================== -->
+
+<div class="card">
+
+    <h2>Base SIP</h2>
+
+    <div class="form-group">
+
+        <label for="baseSIP">
+            Annual Base SIP Amount (₹)
+        </label>
+
+        <input
+            type="number"
+            id="baseSIP"
+            min="0"
+            step="1"
+            placeholder="Example: 100000"
+            oninput="calculate()"
+        >
+
+    </div>
+
+
+    <div class="sip-summary">
+
+        <div class="sip-grid">
+
+            <div class="sip-box">
+
+                <span>
+                    Annual Base SIP
+                </span>
+
+                <strong id="annualSIP">
+                    ₹0
+                </strong>
+
+            </div>
+
+
+            <div class="sip-box">
+
+                <span>
+                    9 Month SIP
+                </span>
+
+                <strong id="nineMonthSIP">
+                    ₹0
+                </strong>
+
+            </div>
+
+
+            <div class="sip-box">
+
+                <span>
+                    Calculation Period
+                </span>
+
+                <strong>
+                    9 / 12
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     SALES MODULE
+===================================================== -->
+
+<div
+    id="salesModule"
+    class="module"
+>
+
+    <!-- SALES INPUT -->
+
+    <div class="card">
+
+        <h2>Sales Incentive</h2>
+
+        <div class="scheme-note">
+
+            <strong>Sales Weightage:</strong>
+            Collection 40% |
+            NPI Liquidation 20% |
+            Other Products Liquidation 40%.
+
+            Achievement percentage is calculated as
+            Achievement ÷ Target × 100.
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>KPI</th>
+
+                        <th>Weightage</th>
+
+                        <th>SIP Allocation</th>
+
+                        <th>Target (Cr)</th>
+
+                        <th>Achievement (Cr)</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    <tr>
+
+                        <td class="kpi-name">
+                            Collection
+                        </td>
+
+                        <td class="weight">
+                            40%
+                        </td>
+
+                        <td
+                            id="salesCollectionSIP"
+                            class="sip-allocation"
+                        >
+                            ₹0
+                        </td>
+
+                        <td>
+
+                            <input
+                                type="number"
+                                id="salesCollectionTarget"
+                                min="0"
+                                step="0.01"
+                                placeholder="0"
+                                oninput="calculate()"
+                            >
+
+                        </td>
+
+                        <td>
+
+                            <input
+                                type="number"
+                                id="salesCollectionAchievement"
+                                min="0"
+                                step="0.01"
+                                placeholder="0"
+                                oninput="calculate()"
+                            >
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td class="kpi-name">
+                            NPI Liquidation
+                        </td>
+
+                        <td class="weight">
+                            20%
+                        </td>
+
+                        <td
+                            id="salesNpiSIP"
+                            class="sip-allocation"
+                        >
+                            ₹0
+                        </td>
+
+                        <td>
+
+                            <input
+                                type="number"
+                                id="salesNpiTarget"
+                                min="0"
+                                step="0.01"
+                                placeholder="0"
+                                oninput="calculate()"
+                            >
+
+                        </td>
+
+                        <td>
+
+                            <input
+                                type="number"
+                                id="salesNpiAchievement"
+                                min="0"
+                                step="0.01"
+                                placeholder="0"
+                                oninput="calculate()"
+                            >
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td class="kpi-name">
+                            Other Products Liquidation
+                        </td>
+
+                        <td class="weight">
+                            40%
+                        </td>
+
+                        <td
+                            id="salesOtherSIP"
+                            class="sip-allocation"
+                        >
+                            ₹0
+                        </td>
+
+                        <td>
+
+                            <input
+                                type="number"
+                                id="salesOtherTarget"
+                                min="0"
+                                step="0.01"
+                                placeholder="0"
+                                oninput="calculate()"
+                            >
+
+                        </td>
+
+                        <td>
+
+                            <input
+                                type="number"
+                                id="salesOtherAchievement"
+                                min="0"
+                                step="0.01"
+                                placeholder="0"
+                                oninput="calculate()"
+                            >
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- SALES RESULT -->
+
+    <div class="card">
+
+        <h2>Sales Payout</h2>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>KPI</th>
+
+                        <th>Achievement %</th>
+
+                        <th>Multiplier</th>
+
+                        <th>SIP Allocation</th>
+
+                        <th>Payout</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    <tr>
+
+                        <td>
+                            Collection
+                        </td>
+
+                        <td
+                            id="salesCollectionPercent"
+                            class="percent"
+                        >
+                            0%
+                        </td>
+
+                        <td
+                            id="salesCollectionMultiplier"
+                            class="multiplier"
+                        >
+                            0X
+                        </td>
+
+                        <td
+                            id="salesCollectionResultSIP"
+                            class="sip-allocation"
+                        >
+                            ₹0
+                        </td>
+
+                        <td
+                            id="salesCollectionPayout"
+                            class="payout"
+                        >
+                            ₹0
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            NPI Liquidation
+                        </td>
+
+                        <td
+                            id="salesNpiPercent"
+                            class="percent"
+                        >
+                            0%
+                        </td>
+
+                        <td
+                            id="salesNpiMultiplier"
+                            class="multiplier"
+                        >
+                            0X
+                        </td>
+
+                        <td
+                            id="salesNpiResultSIP"
+                            class="sip-allocation"
+                        >
+                            ₹0
+                        </td>
+
+                        <td
+                            id="salesNpiPayout"
+                            class="payout"
+                        >
+                            ₹0
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            Other Products Liquidation
+                        </td>
+
+                        <td
+                            id="salesOtherPercent"
+                            class="percent"
+                        >
+                            0%
+                        </td>
+
+                        <td
+                            id="salesOtherMultiplier"
+                            class="multiplier"
+                        >
+                            0X
+                        </td>
+
+                        <td
+                            id="salesOtherResultSIP"
+                            class="sip-allocation"
+                        >
+                            ₹0
+                        </td>
+
+                        <td
+                            id="salesOtherPayout"
+                            class="payout"
+                        >
+                            ₹0
+                        </td>
+
+                    </tr>
+
+
+                    <tr class="total-row">
+
+                        <td
+                            colspan="4"
+                            class="total-label"
+                        >
+                            TOTAL INCENTIVE
+                        </td>
+
+                        <td
+                            id="salesTotalPayout"
+                        >
+                            ₹0
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <div class="result-summary">
+
+            <div class="result-box">
+
+                <span>
+                    Total Incentive
+                </span>
+
+                <strong id="salesTotalDisplay">
+                    ₹0
+                </strong>
+
+            </div>
+
+
+            <div class="result-box">
+
+                <span>
+                    Overall Multiplier
+                </span>
+
+                <strong id="salesOverallMultiplier">
+                    0X
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="salesEligibility"
+            class="eligibility"
+        >
+            Enter achievement details to calculate eligibility.
+        </div>
+
+    </div>
+
+
+    <!-- SALES MATRICES -->
+
+    <div class="card">
+
+        <h2>Sales Incentive Matrices</h2>
+
+
+        <div class="matrix-section">
+
+            <div class="matrix-title">
+                Sales Collection Matrix — SBU / Division
+            </div>
+
+            <div class="table-wrapper">
+
+                <table class="matrix-table">
+
+                    <thead>
+                        <tr>
+                            <th>Achievement</th>
+                            <th>Multiplier</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="salesCollectionSbuMatrix"></tbody>
+
+                </table>
+
+            </div>
+
+
+            <div class="matrix-title">
+                Sales Collection Matrix — Zone / Region / Territory
+            </div>
+
+            <div class="table-wrapper">
+
+                <table class="matrix-table">
+
+                    <thead>
+                        <tr>
+                            <th>Achievement</th>
+                            <th>Multiplier</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="salesCollectionZoneMatrix"></tbody>
+
+                </table>
+
+            </div>
+
+
+            <div class="matrix-title">
+                Sales NPI Matrix — SBU / Division
+            </div>
+
+            <div class="table-wrapper">
+
+                <table class="matrix-table">
+
+                    <thead>
+                        <tr>
+                            <th>Achievement</th>
+                            <th>Multiplier</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="salesNpiSbuMatrix"></tbody>
+
+                </table>
+
+            </div>
+
+
+            <div class="matrix-title">
+                Sales NPI Matrix — Zone / Region / Territory
+            </div>
+
+            <div class="table-wrapper">
+
+                <table class="matrix-table">
+
+                    <thead>
+                        <tr>
+                            <th>Achievement</th>
+                            <th>Multiplier</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="salesNpiZoneMatrix"></tbody>
+
+                </table>
+
+            </div>
+
+
+            <div class="matrix-title">
+                Sales Other Products Matrix — SBU / Division
+            </div>
+
+            <div class="table-wrapper">
+
+                <table class="matrix-table">
+
+                    <thead>
+                        <tr>
+                            <th>Achievement</th>
+                            <th>Multiplier</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="salesOtherSbuMatrix"></tbody>
+
+                </table>
+
+            </div>
+
+
+            <div class="matrix-title">
+                Sales Other Products Matrix — Zone / Region / Territory
+            </div>
+
+            <div class="table-wrapper">
+
+                <table class="matrix-table">
+
+                    <thead>
+                        <tr>
+                            <th>Achievement</th>
+                            <th>Multiplier</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="salesOtherZoneMatrix"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     MARKETING MODULE
+===================================================== -->
+
+<div
+    id="marketingModule"
+    class="module"
+>
+
+    <!-- MARKETING INPUT -->
+
+    <div class="card">
+
+        <h2>Marketing Incentive</h2>
+
+        <div class="scheme-note">
+
+            <strong>Marketing Weightage:</strong>
+            Marketing Activities 10% |
+            NPI Liquidation 50% |
+            PHB Liquidation 10% |
+            Other Products Liquidation 30%.
+
+            Achievement percentage is calculated as
+            Achievement ÷ Target × 100.
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>KPI</th>
+
+                        <th>Weightage</th>
+
+                        <th>SIP Allocation</th>
+
+                        <th>Target (Cr)</th>
+
+                        <th>Achievement (Cr)</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    <tr>
+
+                        <td>
+                            Marketing Activities
+                        </td>
+
+                        <td class="weight">
+                            10%
+                        </td>
+
+                        <td
+                            id="marketingActivitySIP"
+                            class="sip-allocation"
+                        >
+                            ₹0
+                        </td>
+
+                        <td>
+
+                            <input
+                                type="number"
+                                id="marketingActivityTarget"
+                                min="0"
+                                step="0.01"
+                                placeholder="0"
+                                oninput="calculate()"
+                            >
+
+                        </td>
+
+                        <td>
+
+                            <input
+                                type="number"
+                                id="marketingActivityAchievement"
+                                min="0"
+                                step="0.01"
+                                placeholder="0"
+                                oninput="calculate()"
+                            >
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            NPI Liquidation
+                        </td>
+
+                        <td class="weight">
+                            50%
+                        </td>
+
+                        <td
+                            id="marketingNpiSIP"
+                            class="sip-allocation"
+                        >
+                            ₹0
+                        </td>
+
+                        <td>
+
+                            <input
+                                type="number"
+                                id="marketingNpiTarget"
+                                min="0"
+                                step="0.01"
+                                placeholder="0"
+                                oninput="calculate()"
+                            >
+
+                        </td>
+
+                        <td>
+
+                            <input
+                                type="number"
+                                id="marketingNpiAchievement"
+                                min="0"
+                                step="0.01"
+                                placeholder="0"
+                                oninput="calculate()"
+                            >
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            PHB Liquidation
+                        </td>
+
+                        <td class="weight">
+                            10%
+                        </td>
+
+                        <td
+                            id="marketingPhbSIP"
+                            class="sip-allocation"
+                        >
+                            ₹0
+                        </td>
+
+                        <td>
+
+                            <input
+                                type="number"
+                                id="marketingPhbTarget"
+                                min="0"
+                                step="0.01"
+                                placeholder="0"
+                                oninput="calculate()"
+                            >
+
+                        </td>
+
+                        <td>
+
+                            <input
+                                type="number"
+                                id="marketingPhbAchievement"
+                                min="0"
+                                step="0.01"
+                                placeholder="0"
+                                oninput="calculate()"
+                            >
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            Other Products Liquidation
+                        </td>
+
+                        <td class="weight">
+                            30%
+                        </td>
+
+                        <td
+                            id="marketingOtherSIP"
+                            class="sip-allocation"
+                        >
+                            ₹0
+                        </td>
+
+                        <td>
+
+                            <input
+                                type="number"
+                                id="marketingOtherTarget"
+                                min="0"
+                                step="0.01"
+                                placeholder="0"
+                                oninput="calculate()"
+                            >
+
+                        </td>
+
+                        <td>
+
+                            <input
+                                type="number"
+                                id="marketingOtherAchievement"
+                                min="0"
+                                step="0.01"
+                                placeholder="0"
+                                oninput="calculate()"
+                            >
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- MARKETING RESULT -->
+
+    <div class="card">
+
+        <h2>Marketing Payout</h2>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>KPI</th>
+
+                        <th>Achievement %</th>
+
+                        <th>Multiplier</th>
+
+                        <th>SIP Allocation</th>
+
+                        <th>Payout</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    <tr>
+
+                        <td>
+                            Marketing Activities
+                        </td>
+
+                        <td
+                            id="marketingActivityPercent"
+                            class="percent"
+                        >
+                            0%
+                        </td>
+
+                        <td
+                            id="marketingActivityMultiplier"
+                            class="multiplier"
+                        >
+                            0X
+                        </td>
+
+                        <td
+                            id="marketingActivityResultSIP"
+                            class="sip-allocation"
+                        >
+                            ₹0
+                        </td>
+
+                        <td
+                            id="marketingActivityPayout"
+                            class="payout"
+                        >
+                            ₹0
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            NPI Liquidation
+                        </td>
+
+                        <td
+                            id="marketingNpiPercent"
+                            class="percent"
+                        >
+                            0%
+                        </td>
+
+                        <td
+                            id="marketingNpiMultiplier"
+                            class="multiplier"
+                        >
+                            0X
+                        </td>
+
+                        <td
+                            id="marketingNpiResultSIP"
+                            class="sip-allocation"
+                        >
+                            ₹0
+                        </td>
+
+                        <td
+                            id="marketingNpiPayout"
+                            class="payout"
+                        >
+                            ₹0
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            PHB Liquidation
+                        </td>
+
+                        <td
+                            id="marketingPhbPercent"
+                            class="percent"
+                        >
+                            0%
+                        </td>
+
+                        <td
+                            id="marketingPhbMultiplier"
+                            class="multiplier"
+                        >
+                            0X
+                        </td>
+
+                        <td
+                            id="marketingPhbResultSIP"
+                            class="sip-allocation"
+                        >
+                            ₹0
+                        </td>
+
+                        <td
+                            id="marketingPhbPayout"
+                            class="payout"
+                        >
+                            ₹0
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            Other Products Liquidation
+                        </td>
+
+                        <td
+                            id="marketingOtherPercent"
+                            class="percent"
+                        >
+                            0%
+                        </td>
+
+                        <td
+                            id="marketingOtherMultiplier"
+                            class="multiplier"
+                        >
+                            0X
+                        </td>
+
+                        <td
+                            id="marketingOtherResultSIP"
+                            class="sip-allocation"
+                        >
+                            ₹0
+                        </td>
+
+                        <td
+                            id="marketingOtherPayout"
+                            class="payout"
+                        >
+                            ₹0
+                        </td>
+
+                    </tr>
+
+
+                    <tr class="total-row">
+
+                        <td
+                            colspan="4"
+                            class="total-label"
+                        >
+                            TOTAL INCENTIVE
+                        </td>
+
+                        <td
+                            id="marketingTotalPayout"
+                        >
+                            ₹0
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <div class="result-summary">
+
+            <div class="result-box">
+
+                <span>
+                    Total Incentive
+                </span>
+
+                <strong id="marketingTotalDisplay">
+                    ₹0
+                </strong>
+
+            </div>
+
+
+            <div class="result-box">
+
+                <span>
+                    Overall Multiplier
+                </span>
+
+                <strong id="marketingOverallMultiplier">
+                    0X
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="marketingEligibility"
+            class="eligibility"
+        >
+            Enter achievement details to calculate eligibility.
+        </div>
+
+    </div>
+
+
+    <!-- MARKETING MATRICES -->
+
+    <div class="card">
+
+        <h2>Marketing Incentive Matrices</h2>
+
+
+        <div class="matrix-title">
+            Marketing Activities Matrix — All Hierarchies
+        </div>
+
+        <div class="table-wrapper">
+
+            <table class="matrix-table">
+
+                <thead>
+                    <tr>
+                        <th>Achievement</th>
+                        <th>Multiplier</th>
+                    </tr>
+                </thead>
+
+                <tbody id="marketingActivityMatrixDisplay"></tbody>
+
+            </table>
+
+        </div>
+
+
+        <div class="matrix-title">
+            Marketing NPI Matrix — SBU / Division
+        </div>
+
+        <div class="table-wrapper">
+
+            <table class="matrix-table">
+
+                <thead>
+                    <tr>
+                        <th>Achievement</th>
+                        <th>Multiplier</th>
+                    </tr>
+                </thead>
+
+                <tbody id="marketingNpiSbuMatrix"></tbody>
+
+            </table>
+
+        </div>
+
+
+        <div class="matrix-title">
+            Marketing NPI Matrix — Zone / Region / Territory
+        </div>
+
+        <div class="table-wrapper">
+
+            <table class="matrix-table">
+
+                <thead>
+                    <tr>
+                        <th>Achievement</th>
+                        <th>Multiplier</th>
+                    </tr>
+                </thead>
+
+                <tbody id="marketingNpiZoneMatrix"></tbody>
+
+            </table>
+
+        </div>
+
+
+        <div class="matrix-title">
+            Marketing PHB Matrix — SBU / Division
+        </div>
+
+        <div class="table-wrapper">
+
+            <table class="matrix-table">
+
+                <thead>
+                    <tr>
+                        <th>Achievement</th>
+                        <th>Multiplier</th>
+                    </tr>
+                </thead>
+
+                <tbody id="marketingPhbSbuMatrix"></tbody>
+
+            </table>
+
+        </div>
+
+
+        <div class="matrix-title">
+            Marketing PHB Matrix — Zone / Region / Territory
+        </div>
+
+        <div class="table-wrapper">
+
+            <table class="matrix-table">
+
+                <thead>
+                    <tr>
+                        <th>Achievement</th>
+                        <th>Multiplier</th>
+                    </tr>
+                </thead>
+
+                <tbody id="marketingPhbZoneMatrix"></tbody>
+
+            </table>
+
+        </div>
+
+
+        <div class="matrix-title">
+            Marketing Other Products Matrix — SBU / Division
+        </div>
+
+        <div class="table-wrapper">
+
+            <table class="matrix-table">
+
+                <thead>
+                    <tr>
+                        <th>Achievement</th>
+                        <th>Multiplier</th>
+                    </tr>
+                </thead>
+
+                <tbody id="marketingOtherSbuMatrix"></tbody>
+
+            </table>
+
+        </div>
+
+
+        <div class="matrix-title">
+            Marketing Other Products Matrix — Zone / Region / Territory
+        </div>
+
+        <div class="table-wrapper">
+
+            <table class="matrix-table">
+
+                <thead>
+                    <tr>
+                        <th>Achievement</th>
+                        <th>Multiplier</th>
+                    </tr>
+                </thead>
+
+                <tbody id="marketingOtherZoneMatrix"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     TERMS & CONDITIONS
+===================================================== -->
+
+<div class="card terms">
+
+    <h2>Terms & Conditions</h2>
+
+    <ul>
+
+        <li>
+            Employees achieving multiplier less than 0.8X
+            are not eligible for incentive payout.
+        </li>
+
+        <li>
+            Incentive payout is calculated for 9 months only.
+        </li>
+
+        <li>
+            Maximum cap for SBU & Division is 3X.
+        </li>
+
+        <li>
+            Maximum cap for Zone / Region / Territory is 6X.
+        </li>
+
+        <li>
+            Marketing Activities maximum multiplier is 1.5X.
+        </li>
+
+        <li>
+            Employee should spend more than 3 months in
+            territory during evaluation period.
+        </li>
+
+        <li>
+            Employee should be on payroll during incentive
+            disbursement.
+        </li>
+
+        <li>
+            Payouts are annual but calculated on 9 months'
+            performance.
+        </li>
+
+    </ul>
+
+</div>
+
+
+<!-- =====================================================
+     BUTTONS
+===================================================== -->
+
+<div class="button-area">
+
+    <button onclick="calculate()">
+        Calculate
+    </button>
+
+    <button
+        class="secondary"
+        onclick="resetCalculator()"
+    >
+        Reset
+    </button>
+
+    <button
+        class="print-btn"
+        onclick="printCalculator()"
+    >
+        Print / Save PDF
+    </button>
+
+</div>
+
+
+<div class="footer">
+
+    FMC India 2 | SIT Incentive Calculator
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   CONFIGURATION
+========================================================= */
+
+
+/* =========================================================
+   SALES WEIGHTAGE
+========================================================= */
+
+const salesWeights = {
+
+    collection: 0.40,
+
+    npi: 0.20,
+
+    other: 0.40
+
+};
+
+
+/* =========================================================
+   MARKETING WEIGHTAGE
+========================================================= */
+
+const marketingWeights = {
+
+    activity: 0.10,
+
+    npi: 0.50,
+
+    phb: 0.10,
+
+    other: 0.30
+
+};
+
+
+/* =========================================================
+   SALES COLLECTION MATRIX
+========================================================= */
+
+const salesCollectionSBU = [
+
+    { percent: 117, multiplier: 3.0 },
+    { percent: 113, multiplier: 2.5 },
+    { percent: 110, multiplier: 2.0 },
+    { percent: 100, multiplier: 1.5 },
+    { percent: 90,  multiplier: 1.25 },
+    { percent: 80,  multiplier: 1.0 },
+    { percent: 75,  multiplier: 0.8 }
+
+];
+
+
+const salesCollectionZone = [
+
+    { percent: 117, multiplier: 6.0 },
+    { percent: 113, multiplier: 5.0 },
+    { percent: 110, multiplier: 4.0 },
+    { percent: 100, multiplier: 3.0 },
+    { percent: 90,  multiplier: 2.0 },
+    { percent: 80,  multiplier: 1.0 },
+    { percent: 75,  multiplier: 0.8 }
+
+];
+
+
+/* =========================================================
+   SALES NPI MATRIX
+========================================================= */
+
+const salesNpiSBU = [
+
+    { percent: 102, multiplier: 3.0 },
+    { percent: 93,  multiplier: 2.5 },
+    { percent: 79,  multiplier: 2.0 },
+    { percent: 61,  multiplier: 1.5 },
+    { percent: 44,  multiplier: 1.25 },
+    { percent: 28,  multiplier: 1.0 },
+    { percent: 11,  multiplier: 0.8 }
+
+];
+
+
+const salesNpiZone = [
+
+    { percent: 102, multiplier: 6.0 },
+    { percent: 93,  multiplier: 5.0 },
+    { percent: 79,  multiplier: 4.0 },
+    { percent: 61,  multiplier: 3.0 },
+    { percent: 44,  multiplier: 2.0 },
+    { percent: 28,  multiplier: 1.0 },
+    { percent: 11,  multiplier: 0.8 }
+
+];
+
+
+/* =========================================================
+   SALES OTHER PRODUCTS MATRIX
+========================================================= */
+
+const salesOtherSBU = [
+
+    { percent: 111, multiplier: 3.0 },
+    { percent: 105, multiplier: 2.5 },
+    { percent: 99,  multiplier: 2.0 },
+    { percent: 95,  multiplier: 1.5 },
+    { percent: 91,  multiplier: 1.25 },
+    { percent: 87,  multiplier: 1.0 },
+    { percent: 83,  multiplier: 0.8 }
+
+];
+
+
+const salesOtherZone = [
+
+    { percent: 111, multiplier: 6.0 },
+    { percent: 105, multiplier: 5.0 },
+    { percent: 99,  multiplier: 4.0 },
+    { percent: 95,  multiplier: 3.0 },
+    { percent: 91,  multiplier: 2.0 },
+    { percent: 87,  multiplier: 1.0 },
+    { percent: 83,  multiplier: 0.8 }
+
+];
+
+
+/* =========================================================
+   MARKETING ACTIVITY MATRIX
+========================================================= */
+
+const marketingActivityMatrix = [
+
+    { percent: 110, multiplier: 1.5 },
+    { percent: 105, multiplier: 1.25 },
+    { percent: 100, multiplier: 1.0 },
+    { percent: 90,  multiplier: 0.8 }
+
+];
+
+
+/* =========================================================
+   MARKETING NPI MATRIX
+========================================================= */
+
+const marketingNpiSBU = [
+
+    { percent: 102, multiplier: 3.0 },
+    { percent: 93,  multiplier: 2.5 },
+    { percent: 79,  multiplier: 2.0 },
+    { percent: 61,  multiplier: 1.5 },
+    { percent: 44,  multiplier: 1.25 },
+    { percent: 28,  multiplier: 1.0 },
+    { percent: 11,  multiplier: 0.8 }
+
+];
+
+
+const marketingNpiZone = [
+
+    { percent: 102, multiplier: 6.0 },
+    { percent: 93,  multiplier: 5.0 },
+    { percent: 79,  multiplier: 4.0 },
+    { percent: 61, multiplier: 3.0 },
+    { percent: 44, multiplier: 2.0 },
+    { percent: 28, multiplier: 1.0 },
+    { percent: 11, multiplier: 0.8 }
+
+];
+
+
+/* =========================================================
+   MARKETING PHB MATRIX
+========================================================= */
+
+const marketingPhbSBU = [
+
+    { percent: 114, multiplier: 3.0 },
+    { percent: 92,  multiplier: 2.5 },
+    { percent: 76,  multiplier: 2.0 },
+    { percent: 73,  multiplier: 1.5 },
+    { percent: 70,  multiplier: 1.25 },
+    { percent: 67,  multiplier: 1.0 },
+    { percent: 63,  multiplier: 0.8 }
+
+];
+
+
+const marketingPhbZone = [
+
+    { percent: 114, multiplier: 6.0 },
+    { percent: 92,  multiplier: 5.0 },
+    { percent: 76,  multiplier: 4.0 },
+    { percent: 73,  multiplier: 3.0 },
+    { percent: 70,  multiplier: 2.0 },
+    { percent: 67,  multiplier: 1.0 },
+    { percent: 63,  multiplier: 0.8 }
+
+];
+
+
+/* =========================================================
+   MARKETING OTHER PRODUCTS MATRIX
+========================================================= */
+
+const marketingOtherSBU = [
+
+    { percent: 110, multiplier: 3.0 },
+    { percent: 106, multiplier: 2.5 },
+    { percent: 102, multiplier: 2.0 },
+    { percent: 98,  multiplier: 1.5 },
+    { percent: 93,  multiplier: 1.25 },
+    { percent: 89,  multiplier: 1.0 },
+    { percent: 85,  multiplier: 0.8 }
+
+];
+
+
+const marketingOtherZone = [
+
+    { percent: 110, multiplier: 6.0 },
+    { percent: 106, multiplier: 5.0 },
+    { percent: 102, multiplier: 4.0 },
+    { percent: 98,  multiplier: 3.0 },
+    { percent: 93,  multiplier: 2.0 },
+    { percent: 89,  multiplier: 1.0 },
+    { percent: 85,  multiplier: 0.8 }
+
+];
+
+
+/* =========================================================
+   BASIC HELPERS
+========================================================= */
+
+function formatRupees(value) {
+
+    if (!isFinite(value)) {
+        value = 0;
+    }
+
+    return "₹" + Math.round(value).toLocaleString("en-IN");
+
+}
+
+
+function getNumber(id) {
+
+    const element =
+        document.getElementById(id);
+
+    if (!element) {
+        return 0;
+    }
+
+    const value =
+        parseFloat(element.value);
+
+    return isFinite(value) ? value : 0;
+
+}
+
+
+function achievementPercent(target, achievement) {
+
+    if (target <= 0) {
+        return 0;
+    }
+
+    return (achievement / target) * 100;
+
+}
+
+
+/* =========================================================
+   MATRIX LOOKUP
+========================================================= */
+
+function getMatrixMultiplier(percent, matrix) {
+
+    let result = 0;
+
+    /*
+       Matrix entries are sorted from highest
+       achievement threshold to lowest.
+
+       The first threshold reached is used.
+    */
+
+    for (let i = 0; i < matrix.length; i++) {
+
+        if (percent >= matrix[i].percent) {
+
+            result = matrix[i].multiplier;
+
+            break;
+
+        }
+
+    }
+
+
+    /*
+       Explicit minimum incentive threshold.
+       Anything below 0.8X becomes no incentive.
+    */
+
+    if (result < 0.8) {
+        return 0;
+    }
+
+
+    return result;
+
+}
+
+
+/* =========================================================
+   ROLE CHANGE
+========================================================= */
+
+function roleChanged() {
+
+    const role =
+        document.getElementById("roleType").value;
+
+
+    document
+        .getElementById("salesModule")
+        .classList.remove("active");
+
+
+    document
+        .getElementById("marketingModule")
+        .classList.remove("active");
+
+
+    if (role === "sales") {
+
+        document
+            .getElementById("salesModule")
+            .classList.add("active");
+
+    }
+
+
+    if (role === "marketing") {
+
+        document
+            .getElementById("marketingModule")
+            .classList.add("active");
+
+    }
+
+
+    calculate();
+
+}
+
+
+/* =========================================================
+   SALES CALCULATION
+========================================================= */
+
+function calculateSales(nineMonthSIP) {
+
+    const hierarchy =
+        document.getElementById("hierarchy").value;
+
+
+    /* SIP ALLOCATION */
+
+    const collectionSIP =
+        nineMonthSIP * salesWeights.collection;
+
+    const npiSIP =
+        nineMonthSIP * salesWeights.npi;
+
+    const otherSIP =
+        nineMonthSIP * salesWeights.other;
+
+
+    document.getElementById(
+        "salesCollectionSIP"
+    ).innerText =
+        formatRupees(collectionSIP);
+
+
+    document.getElementById(
+        "salesNpiSIP"
+    ).innerText =
+        formatRupees(npiSIP);
+
+
+    document.getElementById(
+        "salesOtherSIP"
+    ).innerText =
+        formatRupees(otherSIP);
+
+
+    /* INPUTS */
+
+    const collectionTarget =
+        getNumber("salesCollectionTarget");
+
+    const collectionAchievement =
+        getNumber("salesCollectionAchievement");
+
+
+    const npiTarget =
+        getNumber("salesNpiTarget");
+
+    const npiAchievement =
+        getNumber("salesNpiAchievement");
+
+
+    const otherTarget =
+        getNumber("salesOtherTarget");
+
+    const otherAchievement =
+        getNumber("salesOtherAchievement");
+
+
+    /* PERCENTAGES */
+
+    const collectionPercent =
+        achievementPercent(
+            collectionTarget,
+            collectionAchievement
+        );
+
+
+    const npiPercent =
+        achievementPercent(
+            npiTarget,
+            npiAchievement
+        );
+
+
+    const otherPercent =
+        achievementPercent(
+            otherTarget,
+            otherAchievement
+        );
+
+
+    /* MATRICES */
+
+    let collectionMatrix =
+        salesCollectionSBU;
+
+    let npiMatrix =
+        salesNpiSBU;
+
+    let otherMatrix =
+        salesOtherSBU;
+
+
+    if (hierarchy === "zone") {
+
+        collectionMatrix =
+            salesCollectionZone;
+
+        npiMatrix =
+            salesNpiZone;
+
+        otherMatrix =
+            salesOtherZone;
+
+    }
+
+
+    /* MULTIPLIERS */
+
+    const collectionMultiplier =
+        getMatrixMultiplier(
+            collectionPercent,
+            collectionMatrix
+        );
+
+
+    const npiMultiplier =
+        getMatrixMultiplier(
+            npiPercent,
+            npiMatrix
+        );
+
+
+    const otherMultiplier =
+        getMatrixMultiplier(
+            otherPercent,
+            otherMatrix
+        );
+
+
+    /* PAYOUT */
+
+    const collectionPayout =
+        collectionSIP *
+        collectionMultiplier;
+
+
+    const npiPayout =
+        npiSIP *
+        npiMultiplier;
+
+
+    const otherPayout =
+        otherSIP *
+        otherMultiplier;
+
+
+    const totalPayout =
+        collectionPayout +
+        npiPayout +
+        otherPayout;
+
+
+    /* DISPLAY */
+
+    document.getElementById(
+        "salesCollectionPercent"
+    ).innerText =
+        collectionPercent.toFixed(1) + "%";
+
+
+    document.getElementById(
+        "salesNpiPercent"
+    ).innerText =
+        npiPercent.toFixed(1) + "%";
+
+
+    document.getElementById(
+        "salesOtherPercent"
+    ).innerText =
+        otherPercent.toFixed(1) + "%";
+
+
+    document.getElementById(
+        "salesCollectionMultiplier"
+    ).innerText =
+        collectionMultiplier.toFixed(2) + "X";
+
+
+    document.getElementById(
+        "salesNpiMultiplier"
+    ).innerText =
+        npiMultiplier.toFixed(2) + "X";
+
+
+    document.getElementById(
+        "salesOtherMultiplier"
+    ).innerText =
+        otherMultiplier.toFixed(2) + "X";
+
+
+    document.getElementById(
+        "salesCollectionResultSIP"
+    ).innerText =
+        formatRupees(collectionSIP);
+
+
+    document.getElementById(
+        "salesNpiResultSIP"
+    ).innerText =
+        formatRupees(npiSIP);
+
+
+    document.getElementById(
+        "salesOtherResultSIP"
+    ).innerText =
+        formatRupees(otherSIP);
+
+
+    document.getElementById(
+        "salesCollectionPayout"
+    ).innerText =
+        formatRupees(collectionPayout);
+
+
+    document.getElementById(
+        "salesNpiPayout"
+    ).innerText =
+        formatRupees(npiPayout);
+
+
+    document.getElementById(
+        "salesOtherPayout"
+    ).innerText =
+        formatRupees(otherPayout);
+
+
+    document.getElementById(
+        "salesTotalPayout"
+    ).innerText =
+        formatRupees(totalPayout);
+
+
+    document.getElementById(
+        "salesTotalDisplay"
+    ).innerText =
+        formatRupees(totalPayout);
+
+
+    /* OVERALL MULTIPLIER */
+
+    let overallMultiplier = 0;
+
+    if (nineMonthSIP > 0) {
+
+        overallMultiplier =
+            totalPayout /
+            nineMonthSIP;
+
+    }
+
+
+    document.getElementById(
+        "salesOverallMultiplier"
+    ).innerText =
+        overallMultiplier.toFixed(2) + "X";
+
+
+    /* ELIGIBILITY */
+
+    const eligibility =
+        document.getElementById(
+            "salesEligibility"
+        );
+
+
+    if (totalPayout > 0) {
+
+        eligibility.className =
+            "eligibility eligible";
+
+        eligibility.innerText =
+            "Eligible for incentive payout.";
+
+    } else {
+
+        eligibility.className =
+            "eligibility not-eligible";
+
+        eligibility.innerText =
+            "No incentive payout based on the current achievement.";
+
+    }
+
+}
+
+
+/* =========================================================
+   MARKETING CALCULATION
+========================================================= */
+
+function calculateMarketing(nineMonthSIP) {
+
+    const hierarchy =
+        document.getElementById("hierarchy").value;
+
+
+    /* SIP ALLOCATION */
+
+    const activitySIP =
+        nineMonthSIP *
+        marketingWeights.activity;
+
+    const npiSIP =
+        nineMonthSIP *
+        marketingWeights.npi;
+
+    const phbSIP =
+        nineMonthSIP *
+        marketingWeights.phb;
+
+    const otherSIP =
+        nineMonthSIP *
+        marketingWeights.other;
+
+
+    document.getElementById(
+        "marketingActivitySIP"
+    ).innerText =
+        formatRupees(activitySIP);
+
+
+    document.getElementById(
+        "marketingNpiSIP"
+    ).innerText =
+        formatRupees(npiSIP);
+
+
+    document.getElementById(
+        "marketingPhbSIP"
+    ).innerText =
+        formatRupees(phbSIP);
+
+
+    document.getElementById(
+        "marketingOtherSIP"
+    ).innerText =
+        formatRupees(otherSIP);
+
+
+    /* INPUTS */
+
+    const activityTarget =
+        getNumber("marketingActivityTarget");
+
+    const activityAchievement =
+        getNumber("marketingActivityAchievement");
+
+
+    const npiTarget =
+        getNumber("marketingNpiTarget");
+
+    const npiAchievement =
+        getNumber("marketingNpiAchievement");
+
+
+    const phbTarget =
+        getNumber("marketingPhbTarget");
+
+    const phbAchievement =
+        getNumber("marketingPhbAchievement");
+
+
+    const otherTarget =
+        getNumber("marketingOtherTarget");
+
+    const otherAchievement =
+        getNumber("marketingOtherAchievement");
+
+
+    /* PERCENTAGES */
+
+    const activityPercent =
+        achievementPercent(
+            activityTarget,
+            activityAchievement
+        );
+
+
+    const npiPercent =
+        achievementPercent(
+            npiTarget,
+            npiAchievement
+        );
+
+
+    const phbPercent =
+        achievementPercent(
+            phbTarget,
+            phbAchievement
+        );
+
+
+    const otherPercent =
+        achievementPercent(
+            otherTarget,
+            otherAchievement
+        );
+
+
+    /* MATRICES */
+
+    const activityMatrix =
+        marketingActivityMatrix;
+
+
+    let npiMatrix =
+        marketingNpiSBU;
+
+    let phbMatrix =
+        marketingPhbSBU;
+
+    let otherMatrix =
+        marketingOtherSBU;
+
+
+    if (hierarchy === "zone") {
+
+        npiMatrix =
+            marketingNpiZone;
+
+        phbMatrix =
+            marketingPhbZone;
+
+        otherMatrix =
+            marketingOtherZone;
+
+    }
+
+
+    /* MULTIPLIERS */
+
+    const activityMultiplier =
+        getMatrixMultiplier(
+            activityPercent,
+            activityMatrix
+        );
+
+
+    const npiMultiplier =
+        getMatrixMultiplier(
+            npiPercent,
+            npiMatrix
+        );
+
+
+    const phbMultiplier =
+        getMatrixMultiplier(
+            phbPercent,
+            phbMatrix
+        );
+
+
+    const otherMultiplier =
+        getMatrixMultiplier(
+            otherPercent,
+            otherMatrix
+        );
+
+
+    /* PAYOUT */
+
+    const activityPayout =
+        activitySIP *
+        activityMultiplier;
+
+
+    const npiPayout =
+        npiSIP *
+        npiMultiplier;
+
+
+    const phbPayout =
+        phbSIP *
+        phbMultiplier;
+
+
+    const otherPayout =
+        otherSIP *
+        otherMultiplier;
+
+
+    const totalPayout =
+        activityPayout +
+        npiPayout +
+        phbPayout +
+        otherPayout;
+
+
+    /* DISPLAY PERCENTAGES */
+
+    document.getElementById(
+        "marketingActivityPercent"
+    ).innerText =
+        activityPercent.toFixed(1) + "%";
+
+
+    document.getElementById(
+        "marketingNpiPercent"
+    ).innerText =
+        npiPercent.toFixed(1) + "%";
+
+
+    document.getElementById(
+        "marketingPhbPercent"
+    ).innerText =
+        phbPercent.toFixed(1) + "%";
+
+
+    document.getElementById(
+        "marketingOtherPercent"
+    ).innerText =
+        otherPercent.toFixed(1) + "%";
+
+
+    /* DISPLAY MULTIPLIERS */
+
+    document.getElementById(
+        "marketingActivityMultiplier"
+    ).innerText =
+        activityMultiplier.toFixed(2) + "X";
+
+
+    document.getElementById(
+        "marketingNpiMultiplier"
+    ).innerText =
+        npiMultiplier.toFixed(2) + "X";
+
+
+    document.getElementById(
+        "marketingPhbMultiplier"
+    ).innerText =
+        phbMultiplier.toFixed(2) + "X";
+
+
+    document.getElementById(
+        "marketingOtherMultiplier"
+    ).innerText =
+        otherMultiplier.toFixed(2) + "X";
+
+
+    /* SIP */
+
+    document.getElementById(
+        "marketingActivityResultSIP"
+    ).innerText =
+        formatRupees(activitySIP);
+
+
+    document.getElementById(
+        "marketingNpiResultSIP"
+    ).innerText =
+        formatRupees(npiSIP);
+
+
+    document.getElementById(
+        "marketingPhbResultSIP"
+    ).innerText =
+        formatRupees(phbSIP);
+
+
+    document.getElementById(
+        "marketingOtherResultSIP"
+    ).innerText =
+        formatRupees(otherSIP);
+
+
+    /* PAYOUT */
+
+    document.getElementById(
+        "marketingActivityPayout"
+    ).innerText =
+        formatRupees(activityPayout);
+
+
+    document.getElementById(
+        "marketingNpiPayout"
+    ).innerText =
+        formatRupees(npiPayout);
+
+
+    document.getElementById(
+        "marketingPhbPayout"
+    ).innerText =
+        formatRupees(phbPayout);
+
+
+    document.getElementById(
+        "marketingOtherPayout"
+    ).innerText =
+        formatRupees(otherPayout);
+
+
+    document.getElementById(
+        "marketingTotalPayout"
+    ).innerText =
+        formatRupees(totalPayout);
+
+
+    document.getElementById(
+        "marketingTotalDisplay"
+    ).innerText =
+        formatRupees(totalPayout);
+
+
+    /* OVERALL MULTIPLIER */
+
+    let overallMultiplier = 0;
+
+    if (nineMonthSIP > 0) {
+
+        overallMultiplier =
+            totalPayout /
+            nineMonthSIP;
+
+    }
+
+
+    document.getElementById(
+        "marketingOverallMultiplier"
+    ).innerText =
+        overallMultiplier.toFixed(2) + "X";
+
+
+    /* ELIGIBILITY */
+
+    const eligibility =
+        document.getElementById(
+            "marketingEligibility"
+        );
+
+
+    if (totalPayout > 0) {
+
+        eligibility.className =
+            "eligibility eligible";
+
+        eligibility.innerText =
+            "Eligible for incentive payout.";
+
+    } else {
+
+        eligibility.className =
+            "eligibility not-eligible";
+
+        eligibility.innerText =
+            "No incentive payout based on the current achievement.";
+
+    }
+
+}
+
+
+/* =========================================================
+   MAIN CALCULATION
+========================================================= */
+
+function calculate() {
+
+    const annualSIP =
+        getNumber("baseSIP");
+
+
+    const nineMonthSIP =
+        annualSIP * 9 / 12;
+
+
+    document.getElementById(
+        "annualSIP"
+    ).innerText =
+        formatRupees(annualSIP);
+
+
+    document.getElementById(
+        "nineMonthSIP"
+    ).innerText =
+        formatRupees(nineMonthSIP);
+
+
+    const role =
+        document.getElementById("roleType").value;
+
+
+    if (role === "sales") {
+
+        calculateSales(
+            nineMonthSIP
+        );
+
+    }
+
+
+    if (role === "marketing") {
+
+        calculateMarketing(
+            nineMonthSIP
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   MATRIX DISPLAY
+========================================================= */
+
+function renderMatrix(elementId, matrix) {
+
+    const tbody =
+        document.getElementById(elementId);
+
+    if (!tbody) {
+        return;
+    }
+
+    tbody.innerHTML = "";
+
+
+    matrix.forEach(function(row) {
+
+        const tr =
+            document.createElement("tr");
+
+
+        tr.innerHTML = `
+
+            <td>
+                ${row.percent}%
+            </td>
+
+            <td class="multiplier">
+                ${row.multiplier.toFixed(2)}X
+            </td>
+
+        `;
+
+
+        tbody.appendChild(tr);
+
+    });
+
+}
+
+
+/* =========================================================
+   RENDER ALL MATRICES
+========================================================= */
+
+function renderAllMatrices() {
+
+    renderMatrix(
+        "salesCollectionSbuMatrix",
+        salesCollectionSBU
+    );
+
+
+    renderMatrix(
+        "salesCollectionZoneMatrix",
+        salesCollectionZone
+    );
+
+
+    renderMatrix(
+        "salesNpiSbuMatrix",
+        salesNpiSBU
+    );
+
+
+    renderMatrix(
+        "salesNpiZoneMatrix",
+        salesNpiZone
+    );
+
+
+    renderMatrix(
+        "salesOtherSbuMatrix",
+        salesOtherSBU
+    );
+
+
+    renderMatrix(
+        "salesOtherZoneMatrix",
+        salesOtherZone
+    );
+
+
+    renderMatrix(
+        "marketingActivityMatrixDisplay",
+        marketingActivityMatrix
+    );
+
+
+    renderMatrix(
+        "marketingNpiSbuMatrix",
+        marketingNpiSBU
+    );
+
+
+    renderMatrix(
+        "marketingNpiZoneMatrix",
+        marketingNpiZone
+    );
+
+
+    renderMatrix(
+        "marketingPhbSbuMatrix",
+        marketingPhbSBU
+    );
+
+
+    renderMatrix(
+        "marketingPhbZoneMatrix",
+        marketingPhbZone
+    );
+
+
+    renderMatrix(
+        "marketingOtherSbuMatrix",
+        marketingOtherSBU
+    );
+renderMatrix(
+        "marketingOtherZoneMatrix",
+        marketingOtherZone
+    );
+}
+/* =========================================================
+   RESET
+========================================================= */
+function resetCalculator() {
+    const inputs =
+        document.querySelectorAll(
+            "input"
+        );
+    inputs.forEach(function(input) {
+        input.value = "";
+    });
+    document.getElementById(
+        "roleType"
+    ).value = "";
+    document.getElementById(
+        "hierarchy"
+    ).value = "";
+    document
+        .getElementById("salesModule")
+        .classList.remove("active");
+    document
+        .getElementById("marketingModule")
+        .classList.remove("active");
+    document.getElementById(
+        "annualSIP"
+    ).innerText = "₹0";
+    document.getElementById(
+        "nineMonthSIP"
+    ).innerText = "₹0";
+    calculate();
+}
+/* =========================================================
+   PRINT
+========================================================= */
+function printCalculator() {
+    calculate();
+    window.print();
+}
+/* =========================================================
+   INITIALIZATION
+========================================================= */
+renderAllMatrices();
+calculate();
+</script>
+</body>
+</html>
