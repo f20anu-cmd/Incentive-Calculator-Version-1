@@ -3,9 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0b5d3b">
 
-<title>FMC India 2 - SIT Incentive Calculator</title>
+<title>SIT Incentive Calculator</title>
 
 <style>
     * {
@@ -15,61 +14,53 @@
     body {
         margin: 0;
         font-family: Arial, Helvetica, sans-serif;
-        background: #f4f7f5;
+        background: #f3f7f4;
         color: #1f2937;
     }
 
-    /* ================= HEADER ================= */
-
     .header {
-        background: linear-gradient(135deg, #064b30, #0b5d3b, #16804f);
+        background: linear-gradient(135deg, #087f3f, #0b9b50);
         color: white;
-        padding: 20px 16px;
-        box-shadow: 0 3px 12px rgba(0,0,0,0.15);
-    }
-
-    .header-inner {
-        max-width: 700px;
-        margin: auto;
+        padding: 22px 16px;
+        text-align: center;
+        box-shadow: 0 3px 12px rgba(0,0,0,0.12);
     }
 
     .header h1 {
         margin: 0;
-        font-size: 22px;
-        line-height: 1.25;
+        font-size: 25px;
+        font-weight: 700;
     }
 
     .header p {
-        margin: 5px 0 0;
+        margin: 6px 0 0;
         font-size: 13px;
-        opacity: 0.9;
+        opacity: 0.92;
     }
-
-    /* ================= MAIN ================= */
 
     .container {
         width: 100%;
         max-width: 700px;
         margin: auto;
-        padding: 16px 12px 35px;
+        padding: 14px;
     }
 
     .card {
-        background: #ffffff;
+        background: white;
         border-radius: 14px;
-        padding: 17px;
+        padding: 16px;
         margin-bottom: 14px;
-        box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+        box-shadow: 0 3px 12px rgba(0,0,0,0.07);
     }
 
     .card-title {
-        margin: 0 0 15px;
         font-size: 17px;
-        color: #0b5d3b;
         font-weight: 700;
+        color: #087f3f;
+        margin-bottom: 14px;
+        border-left: 4px solid #087f3f;
+        padding-left: 9px;
     }
-
-    /* ================= FORM ================= */
 
     .form-grid {
         display: grid;
@@ -77,90 +68,110 @@
         gap: 12px;
     }
 
-    .field {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .field.full {
+    .full {
         grid-column: 1 / -1;
     }
 
     label {
+        display: block;
         font-size: 12px;
-        font-weight: 700;
-        margin-bottom: 6px;
-        color: #374151;
+        font-weight: 600;
+        color: #4b5563;
+        margin-bottom: 5px;
     }
 
     input,
     select {
         width: 100%;
-        height: 42px;
+        padding: 10px 11px;
         border: 1px solid #d1d5db;
         border-radius: 8px;
-        padding: 0 11px;
         font-size: 14px;
         background: #fff;
-        color: #111827;
         outline: none;
     }
 
     input:focus,
     select:focus {
-        border-color: #0b5d3b;
-        box-shadow: 0 0 0 2px rgba(11,93,59,0.1);
+        border-color: #0b9b50;
+        box-shadow: 0 0 0 2px rgba(11,155,80,0.12);
     }
 
-    input[readonly] {
-        background: #edf5f1;
-        color: #0b5d3b;
-        font-weight: 700;
+    .sip-summary {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 12px;
     }
 
-    /* ================= PERIOD ================= */
+    .summary-box {
+        background: #eef8f2;
+        border-radius: 10px;
+        padding: 12px;
+        text-align: center;
+    }
 
-    .period {
-        background: #eaf6ef;
-        border: 1px solid #cce6d7;
-        border-left: 4px solid #0b5d3b;
-        padding: 11px 12px;
-        border-radius: 8px;
-        margin-top: 13px;
+    .summary-box span {
+        display: block;
+        font-size: 11px;
+        color: #64748b;
+        margin-bottom: 4px;
+    }
+
+    .summary-box strong {
+        font-size: 17px;
+        color: #087f3f;
+    }
+
+    .period-box {
+        background: #fff7e6;
+        border: 1px solid #f4d58d;
+        color: #765a14;
+        border-radius: 9px;
+        padding: 9px;
         font-size: 12px;
-        line-height: 1.5;
+        text-align: center;
+        margin-top: 10px;
     }
 
-    .period strong {
-        color: #0b5d3b;
+    .section-note {
+        font-size: 11px;
+        color: #6b7280;
+        background: #f8fafc;
+        padding: 8px 10px;
+        border-radius: 7px;
+        margin-bottom: 12px;
     }
-
-    /* ================= KPI CARD ================= */
 
     .kpi-card {
-        border: 1px solid #e5e7eb;
+        border: 1px solid #e2e8f0;
         border-radius: 11px;
-        padding: 13px;
-        margin-bottom: 10px;
-        background: #fafcfb;
+        padding: 12px;
+        margin-bottom: 11px;
+        background: #ffffff;
     }
 
     .kpi-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 10px;
         gap: 8px;
+        margin-bottom: 10px;
     }
 
     .kpi-name {
         font-size: 14px;
         font-weight: 700;
-        color: #0b5d3b;
+        color: #111827;
     }
 
-    .kpi-weight {
-        display: none;
+    .weight-badge {
+        font-size: 10px;
+        padding: 4px 7px;
+        border-radius: 20px;
+        background: #e8f6ee;
+        color: #087f3f;
+        font-weight: 700;
     }
 
     .kpi-grid {
@@ -169,168 +180,118 @@
         gap: 9px;
     }
 
-    .kpi-field label {
-        font-size: 10px;
-        color: #6b7280;
-        margin-bottom: 4px;
-    }
-
-    .kpi-field input {
-        height: 38px;
-        font-size: 13px;
-    }
-
-    .achievement-box {
-        margin-top: 9px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: white;
-        border-radius: 7px;
-        padding: 8px 10px;
-        border: 1px solid #e5e7eb;
-    }
-
-    .achievement-label {
-        font-size: 11px;
-        color: #6b7280;
-        font-weight: 600;
-    }
-
-    .achievement-value {
-        font-size: 14px;
-        font-weight: 700;
-        color: #0b5d3b;
-    }
-
-    .payout-row {
-        margin-top: 8px;
-        background: #edf7f1;
-        border-radius: 7px;
-        padding: 9px 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .payout-label {
-        font-size: 11px;
-        color: #374151;
-        font-weight: 700;
-    }
-
-    .payout-value {
-        font-size: 15px;
-        color: #0b5d3b;
-        font-weight: 800;
-    }
-
-    /* ================= RESULTS ================= */
-
-    .result-card {
-        background: linear-gradient(
-            135deg,
-            #064b30 0%,
-            #0b5d3b 50%,
-            #16945a 100%
-        );
-        color: white;
-        border-radius: 17px;
-        padding: 22px 17px;
-        margin-bottom: 14px;
-        text-align: center;
-        box-shadow: 0 6px 20px rgba(11,93,59,0.25);
-        position: relative;
-        overflow: hidden;
-    }
-
-    .result-card::before {
-        content: "✦";
-        position: absolute;
-        top: 7px;
-        left: 18px;
-        font-size: 28px;
-        opacity: 0.35;
-    }
-
-    .result-card::after {
-        content: "✦";
-        position: absolute;
-        bottom: 5px;
-        right: 18px;
-        font-size: 30px;
-        opacity: 0.35;
-    }
-
-    .congrats {
-        font-size: 22px;
-        font-weight: 800;
-        margin-bottom: 4px;
-    }
-
-    .result-name {
-        font-size: 13px;
-        opacity: 0.9;
-        margin-bottom: 15px;
-    }
-
-    .incentive-label {
-        font-size: 12px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        opacity: 0.85;
-    }
-
-    .incentive-value {
-        font-size: 34px;
-        font-weight: 900;
-        margin: 5px 0 13px;
-    }
-
-    .result-stats {
+    .kpi-output {
+        margin-top: 10px;
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 9px;
+        gap: 7px;
     }
 
-    .stat {
-        background: rgba(255,255,255,0.13);
-        border: 1px solid rgba(255,255,255,0.15);
-        border-radius: 9px;
-        padding: 10px 5px;
+    .output-box {
+        background: #f8fafc;
+        border-radius: 8px;
+        padding: 8px;
+        text-align: center;
     }
 
-    .stat-label {
+    .output-box span {
+        display: block;
         font-size: 10px;
-        opacity: 0.8;
+        color: #64748b;
+        margin-bottom: 3px;
     }
 
-    .stat-value {
-        font-size: 16px;
-        font-weight: 800;
-        margin-top: 3px;
+    .output-box strong {
+        font-size: 13px;
+        color: #111827;
     }
 
-    .no-incentive {
+    .output-box.highlight {
+        background: #eaf8ef;
+    }
+
+    .output-box.highlight strong {
+        color: #087f3f;
+    }
+
+    .section-hidden {
+        display: none;
+    }
+
+    .result-card {
+        background: linear-gradient(135deg, #087f3f, #0b9b50);
+        color: white;
+        border-radius: 16px;
+        padding: 20px 16px;
+        margin-bottom: 14px;
+        text-align: center;
+        box-shadow: 0 5px 18px rgba(8,127,63,0.25);
+    }
+
+    .result-card h2 {
+        margin: 0 0 5px;
+        font-size: 21px;
+    }
+
+    .result-card p {
+        margin: 4px 0 16px;
+        font-size: 13px;
+        opacity: 0.95;
+    }
+
+    .final-incentive {
+        background: rgba(255,255,255,0.15);
+        border-radius: 12px;
+        padding: 14px;
+        margin-bottom: 10px;
+    }
+
+    .final-incentive span {
+        display: block;
+        font-size: 11px;
+        opacity: 0.9;
+        margin-bottom: 4px;
+    }
+
+    .final-incentive strong {
+        font-size: 29px;
+    }
+
+    .result-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    .result-small {
+        background: rgba(255,255,255,0.13);
+        border-radius: 9px;
+        padding: 10px;
+    }
+
+    .result-small span {
+        display: block;
+        font-size: 10px;
+        opacity: 0.9;
+        margin-bottom: 3px;
+    }
+
+    .result-small strong {
         font-size: 14px;
-        font-weight: 700;
-        margin-top: 8px;
     }
-
-    /* ================= BUTTONS ================= */
 
     .actions {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 10px;
-        margin-top: 5px;
+        margin-bottom: 20px;
     }
 
     button {
-        height: 44px;
         border: none;
-        border-radius: 8px;
-        font-size: 13px;
+        border-radius: 9px;
+        padding: 12px;
+        font-size: 14px;
         font-weight: 700;
         cursor: pointer;
     }
@@ -341,7 +302,7 @@
     }
 
     .btn-print {
-        background: #0b5d3b;
+        background: #087f3f;
         color: white;
     }
 
@@ -349,35 +310,38 @@
         transform: scale(0.98);
     }
 
-    .hidden {
-        display: none !important;
+    .footer {
+        text-align: center;
+        font-size: 10px;
+        color: #94a3b8;
+        padding: 5px 0 20px;
     }
 
-    /* ================= DESKTOP ================= */
-
-    @media (min-width: 650px) {
-
+    @media (max-width: 420px) {
         .container {
-            padding: 22px 15px 40px;
-        }
-
-        .header {
-            padding: 23px 20px;
-        }
-
-        .header h1 {
-            font-size: 25px;
+            padding: 10px;
         }
 
         .card {
-            padding: 20px;
+            padding: 13px;
+        }
+
+        .header h1 {
+            font-size: 22px;
+        }
+
+        .kpi-name {
+            font-size: 13px;
+        }
+
+        input,
+        select {
+            padding: 9px;
+            font-size: 13px;
         }
     }
 
-    /* ================= PRINT ================= */
-
     @media print {
-
         body {
             background: white;
         }
@@ -387,24 +351,22 @@
         }
 
         .actions {
-            display: none !important;
+            display: none;
         }
 
-        .card,
-        .result-card {
+        .card {
             box-shadow: none;
-            break-inside: avoid;
+            border: 1px solid #ddd;
         }
 
-        input,
-        select {
-            border: none;
-            padding-left: 0;
+        .result-card {
+            color: white !important;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
 
-        @page {
-            size: A4;
-            margin: 10mm;
+        .footer {
+            display: none;
         }
     }
 </style>
@@ -412,660 +374,513 @@
 
 <body>
 
-<header class="header">
-    <div class="header-inner">
-        <h1>FMC India 2 - SIT Incentive Calculator</h1>
-        <p>Sales & Marketing Incentive Calculator</p>
-    </div>
-</header>
+<div class="header">
+    <h1>SIT Incentive Calculator</h1>
+    <p>April – December | 9 Month Incentive Calculation</p>
+</div>
 
+<div class="container">
 
-<main class="container">
+    <!-- EMPLOYEE DETAILS -->
+    <div class="card">
 
-    <!-- ================= EMPLOYEE DETAILS ================= -->
-
-    <section class="card">
-
-        <h2 class="card-title">Employee Details</h2>
+        <div class="card-title">Employee Details</div>
 
         <div class="form-grid">
 
-            <div class="field">
+            <div>
                 <label>Employee Name</label>
-                <input
-                    type="text"
-                    id="employeeName"
-                    placeholder="Enter name"
-                >
+                <input type="text" id="employeeName" placeholder="Enter employee name">
             </div>
 
-            <div class="field">
+            <div>
                 <label>Employee ID</label>
-                <input
-                    type="text"
-                    id="employeeId"
-                    placeholder="Enter ID"
-                >
+                <input type="text" id="employeeId" placeholder="Enter employee ID">
             </div>
 
-            <div class="field">
+            <div>
                 <label>Role Type</label>
-
                 <select id="roleType">
-                    <option value="">Select Role</option>
-                    <option value="sales">Sales</option>
-                    <option value="marketing">Marketing</option>
+                    <option value="Sales">Sales</option>
+                    <option value="Marketing">Marketing</option>
                 </select>
             </div>
 
-            <div class="field">
+            <div>
                 <label>Hierarchy</label>
-
                 <select id="hierarchy">
-                    <option value="">Select Hierarchy</option>
-                    <option value="sbu">SBU & Division</option>
-                    <option value="zone">
-                        Zone / Region / Territory
-                    </option>
+                    <option value="SBU">SBU & Division</option>
+                    <option value="Zone">Zone</option>
+                    <option value="Region">Region</option>
+                    <option value="Territory">Territory</option>
                 </select>
             </div>
 
         </div>
+    </div>
 
-    </section>
 
+    <!-- SIP DETAILS -->
+    <div class="card">
 
-    <!-- ================= SIP DETAILS ================= -->
+        <div class="card-title">SIP Details</div>
 
-    <section class="card">
-
-        <h2 class="card-title">SIP Details</h2>
-
-        <div class="form-grid">
-
-            <div class="field">
-                <label>Annual Base SIP (₹)</label>
-
-                <input
-                    type="number"
-                    id="annualSip"
-                    min="0"
-                    step="0.01"
-                    placeholder="Enter annual SIP"
-                >
-            </div>
-
-            <div class="field">
-                <label>9 Month SIP (₹)</label>
-
-                <input
-                    type="text"
-                    id="nineMonthSip"
-                    value="₹0"
-                    readonly
-                >
-            </div>
-
-        </div>
-
-        <div class="period">
-            <strong>Calculation Period:</strong>
-            April to December — 9 Months
-            <br>
-            9 Month SIP = Annual Base SIP × 9 ÷ 12
-        </div>
-
-    </section>
-
-
-    <!-- ================= SALES ================= -->
-
-    <section
-        id="salesSection"
-        class="card hidden"
-    >
-
-        <h2 class="card-title">
-            Sales Incentive
-        </h2>
-
-
-        <!-- COLLECTION -->
-
-        <div class="kpi-card">
-
-            <div class="kpi-header">
-                <div class="kpi-name">
-                    Collection
-                </div>
-            </div>
-
-            <div class="kpi-grid">
-
-                <div class="kpi-field">
-                    <label>Target</label>
-                    <input
-                        type="number"
-                        id="salesCollectionTarget"
-                        min="0"
-                        step="0.01"
-                        placeholder="Target"
-                    >
-                </div>
-
-                <div class="kpi-field">
-                    <label>Achievement</label>
-                    <input
-                        type="number"
-                        id="salesCollectionAchievement"
-                        min="0"
-                        step="0.01"
-                        placeholder="Achievement"
-                    >
-                </div>
-
-            </div>
-
-            <div class="achievement-box">
-                <span class="achievement-label">
-                    Achievement %
-                </span>
-
-                <span
-                    class="achievement-value"
-                    id="salesCollectionPct"
-                >
-                    0.0%
-                </span>
-            </div>
-
-            <div class="payout-row">
-                <span class="payout-label">
-                    Incentive Payout
-                </span>
-
-                <span
-                    class="payout-value"
-                    id="salesCollectionPayout"
-                >
-                    ₹0
-                </span>
-            </div>
-
-        </div>
-
-
-        <!-- NPI -->
-
-        <div class="kpi-card">
-
-            <div class="kpi-header">
-                <div class="kpi-name">
-                    NPI Liquidation
-                </div>
-            </div>
-
-            <div class="kpi-grid">
-
-                <div class="kpi-field">
-                    <label>Target</label>
-                    <input
-                        type="number"
-                        id="salesNpiTarget"
-                        min="0"
-                        step="0.01"
-                        placeholder="Target"
-                    >
-                </div>
-
-                <div class="kpi-field">
-                    <label>Achievement</label>
-                    <input
-                        type="number"
-                        id="salesNpiAchievement"
-                        min="0"
-                        step="0.01"
-                        placeholder="Achievement"
-                    >
-                </div>
-
-            </div>
-
-            <div class="achievement-box">
-                <span class="achievement-label">
-                    Achievement %
-                </span>
-
-                <span
-                    class="achievement-value"
-                    id="salesNpiPct"
-                >
-                    0.0%
-                </span>
-            </div>
-
-            <div class="payout-row">
-                <span class="payout-label">
-                    Incentive Payout
-                </span>
-
-                <span
-                    class="payout-value"
-                    id="salesNpiPayout"
-                >
-                    ₹0
-                </span>
-            </div>
-
-        </div>
-
-
-        <!-- OTHER PRODUCTS -->
-
-        <div class="kpi-card">
-
-            <div class="kpi-header">
-                <div class="kpi-name">
-                    Other Products Liquidation
-                </div>
-            </div>
-
-            <div class="kpi-grid">
-
-                <div class="kpi-field">
-                    <label>Target</label>
-                    <input
-                        type="number"
-                        id="salesOtherTarget"
-                        min="0"
-                        step="0.01"
-                        placeholder="Target"
-                    >
-                </div>
-
-                <div class="kpi-field">
-                    <label>Achievement</label>
-                    <input
-                        type="number"
-                        id="salesOtherAchievement"
-                        min="0"
-                        step="0.01"
-                        placeholder="Achievement"
-                    >
-                </div>
-
-            </div>
-
-            <div class="achievement-box">
-                <span class="achievement-label">
-                    Achievement %
-                </span>
-
-                <span
-                    class="achievement-value"
-                    id="salesOtherPct"
-                >
-                    0.0%
-                </span>
-            </div>
-
-            <div class="payout-row">
-                <span class="payout-label">
-                    Incentive Payout
-                </span>
-
-                <span
-                    class="payout-value"
-                    id="salesOtherPayout"
-                >
-                    ₹0
-                </span>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ================= MARKETING ================= -->
-
-    <section
-        id="marketingSection"
-        class="card hidden"
-    >
-
-        <h2 class="card-title">
-            Marketing Incentive
-        </h2>
-
-
-        <!-- MARKETING ACTIVITIES -->
-
-        <div class="kpi-card">
-
-            <div class="kpi-header">
-                <div class="kpi-name">
-                    Marketing Activities
-                </div>
-            </div>
-
-            <div class="kpi-grid">
-
-                <div class="kpi-field">
-                    <label>Target</label>
-                    <input
-                        type="number"
-                        id="marketingActivitiesTarget"
-                        min="0"
-                        step="0.01"
-                        placeholder="Target"
-                    >
-                </div>
-
-                <div class="kpi-field">
-                    <label>Achievement</label>
-                    <input
-                        type="number"
-                        id="marketingActivitiesAchievement"
-                        min="0"
-                        step="0.01"
-                        placeholder="Achievement"
-                    >
-                </div>
-
-            </div>
-
-            <div class="achievement-box">
-                <span class="achievement-label">
-                    Achievement %
-                </span>
-
-                <span
-                    class="achievement-value"
-                    id="marketingActivitiesPct"
-                >
-                    0.0%
-                </span>
-            </div>
-
-            <div class="payout-row">
-                <span class="payout-label">
-                    Incentive Payout
-                </span>
-
-                <span
-                    class="payout-value"
-                    id="marketingActivitiesPayout"
-                >
-                    ₹0
-                </span>
-            </div>
-
-        </div>
-
-
-        <!-- NPI -->
-
-        <div class="kpi-card">
-
-            <div class="kpi-header">
-                <div class="kpi-name">
-                    NPI Liquidation
-                </div>
-            </div>
-
-            <div class="kpi-grid">
-
-                <div class="kpi-field">
-                    <label>Target</label>
-                    <input
-                        type="number"
-                        id="marketingNpiTarget"
-                        min="0"
-                        step="0.01"
-                        placeholder="Target"
-                    >
-                </div>
-
-                <div class="kpi-field">
-                    <label>Achievement</label>
-                    <input
-                        type="number"
-                        id="marketingNpiAchievement"
-                        min="0"
-                        step="0.01"
-                        placeholder="Achievement"
-                    >
-                </div>
-
-            </div>
-
-            <div class="achievement-box">
-                <span class="achievement-label">
-                    Achievement %
-                </span>
-
-                <span
-                    class="achievement-value"
-                    id="marketingNpiPct"
-                >
-                    0.0%
-                </span>
-            </div>
-
-            <div class="payout-row">
-                <span class="payout-label">
-                    Incentive Payout
-                </span>
-
-                <span
-                    class="payout-value"
-                    id="marketingNpiPayout"
-                >
-                    ₹0
-                </span>
-            </div>
-
-        </div>
-
-
-        <!-- PHB -->
-
-        <div class="kpi-card">
-
-            <div class="kpi-header">
-                <div class="kpi-name">
-                    PHB Liquidation
-                </div>
-            </div>
-
-            <div class="kpi-grid">
-
-                <div class="kpi-field">
-                    <label>Target</label>
-                    <input
-                        type="number"
-                        id="marketingPhbTarget"
-                        min="0"
-                        step="0.01"
-                        placeholder="Target"
-                    >
-                </div>
-
-                <div class="kpi-field">
-                    <label>Achievement</label>
-                    <input
-                        type="number"
-                        id="marketingPhbAchievement"
-                        min="0"
-                        step="0.01"
-                        placeholder="Achievement"
-                    >
-                </div>
-
-            </div>
-
-            <div class="achievement-box">
-                <span class="achievement-label">
-                    Achievement %
-                </span>
-
-                <span
-                    class="achievement-value"
-                    id="marketingPhbPct"
-                >
-                    0.0%
-                </span>
-            </div>
-
-            <div class="payout-row">
-                <span class="payout-label">
-                    Incentive Payout
-                </span>
-
-                <span
-                    class="payout-value"
-                    id="marketingPhbPayout"
-                >
-                    ₹0
-                </span>
-            </div>
-
-        </div>
-
-
-        <!-- OTHER PRODUCTS -->
-
-        <div class="kpi-card">
-
-            <div class="kpi-header">
-                <div class="kpi-name">
-                    Other Products Liquidation
-                </div>
-            </div>
-
-            <div class="kpi-grid">
-
-                <div class="kpi-field">
-                    <label>Target</label>
-                    <input
-                        type="number"
-                        id="marketingOtherTarget"
-                        min="0"
-                        step="0.01"
-                        placeholder="Target"
-                    >
-                </div>
-
-                <div class="kpi-field">
-                    <label>Achievement</label>
-                    <input
-                        type="number"
-                        id="marketingOtherAchievement"
-                        min="0"
-                        step="0.01"
-                        placeholder="Achievement"
-                    >
-                </div>
-
-            </div>
-
-            <div class="achievement-box">
-                <span class="achievement-label">
-                    Achievement %
-                </span>
-
-                <span
-                    class="achievement-value"
-                    id="marketingOtherPct"
-                >
-                    0.0%
-                </span>
-            </div>
-
-            <div class="payout-row">
-                <span class="payout-label">
-                    Incentive Payout
-                </span>
-
-                <span
-                    class="payout-value"
-                    id="marketingOtherPayout"
-                >
-                    ₹0
-                </span>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ================= FINAL RESULT ================= -->
-
-    <section class="result-card">
-
-        <div class="congrats" id="congratsMessage">
-            🎉 Congratulations!
-        </div>
-
-        <div class="result-name" id="resultName">
-            Your incentive calculation is ready
-        </div>
-
-        <div class="incentive-label">
-            Final Incentive
-        </div>
-
-        <div
-            class="incentive-value"
-            id="totalIncentive"
+        <label>Annual Base SIP (₹)</label>
+        <input
+            type="number"
+            id="annualSIP"
+            placeholder="Enter annual base SIP"
+            min="0"
+            step="0.01"
         >
-            ₹0
-        </div>
 
-        <div class="result-stats">
+        <div class="sip-summary">
 
-            <div class="stat">
-                <div class="stat-label">
-                    9 Month SIP
-                </div>
-
-                <div
-                    class="stat-value"
-                    id="summaryNineMonthSip"
-                >
-                    ₹0
-                </div>
+            <div class="summary-box">
+                <span>Annual Base SIP</span>
+                <strong id="annualSIPDisplay">₹0</strong>
             </div>
 
-            <div class="stat">
-                <div class="stat-label">
-                    Overall Multiplier
-                </div>
-
-                <div
-                    class="stat-value"
-                    id="overallMultiplier"
-                >
-                    0X
-                </div>
+            <div class="summary-box">
+                <span>9 Month SIP</span>
+                <strong id="nineMonthSIPDisplay">₹0</strong>
             </div>
 
         </div>
 
-        <div
-            class="no-incentive hidden"
-            id="noIncentiveMessage"
-        >
-            Incentive eligibility not achieved.
+        <div class="period-box">
+            Calculation Period: <strong>April to December (9 Months)</strong>
         </div>
 
-    </section>
+    </div>
 
 
-    <!-- ================= BUTTONS ================= -->
+    <!-- SALES SECTION -->
+    <div id="salesSection">
 
+        <div class="card">
+
+            <div class="card-title">Sales KPIs</div>
+
+            <div class="section-note">
+                Enter all Sales Target and Achievement values in <strong>₹ Crore (Cr)</strong>.
+            </div>
+
+            <!-- COLLECTION -->
+            <div class="kpi-card">
+
+                <div class="kpi-header">
+                    <div class="kpi-name">Collection</div>
+                    <div class="weight-badge">40%</div>
+                </div>
+
+                <div class="kpi-grid">
+
+                    <div>
+                        <label>Target (Cr)</label>
+                        <input
+                            type="number"
+                            id="salesCollectionTarget"
+                            placeholder="0.00"
+                            min="0"
+                            step="0.01"
+                        >
+                    </div>
+
+                    <div>
+                        <label>Achievement (Cr)</label>
+                        <input
+                            type="number"
+                            id="salesCollectionAchievement"
+                            placeholder="0.00"
+                            min="0"
+                            step="0.01"
+                        >
+                    </div>
+
+                </div>
+
+                <div class="kpi-output">
+
+                    <div class="output-box">
+                        <span>Achievement %</span>
+                        <strong id="salesCollectionPercent">0%</strong>
+                    </div>
+
+                    <div class="output-box highlight">
+                        <span>Incentive Payout</span>
+                        <strong id="salesCollectionPayout">₹0</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- NPI -->
+            <div class="kpi-card">
+
+                <div class="kpi-header">
+                    <div class="kpi-name">NPI Liquidation</div>
+                    <div class="weight-badge">20%</div>
+                </div>
+
+                <div class="kpi-grid">
+
+                    <div>
+                        <label>Target (Cr)</label>
+                        <input
+                            type="number"
+                            id="salesNPITarget"
+                            placeholder="0.00"
+                            min="0"
+                            step="0.01"
+                        >
+                    </div>
+
+                    <div>
+                        <label>Achievement (Cr)</label>
+                        <input
+                            type="number"
+                            id="salesNPIAchievement"
+                            placeholder="0.00"
+                            min="0"
+                            step="0.01"
+                        >
+                    </div>
+
+                </div>
+
+                <div class="kpi-output">
+
+                    <div class="output-box">
+                        <span>Achievement %</span>
+                        <strong id="salesNPIPercent">0%</strong>
+                    </div>
+
+                    <div class="output-box highlight">
+                        <span>Incentive Payout</span>
+                        <strong id="salesNPIPayout">₹0</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- OTHER PRODUCTS -->
+            <div class="kpi-card">
+
+                <div class="kpi-header">
+                    <div class="kpi-name">Other Products Liquidation</div>
+                    <div class="weight-badge">40%</div>
+                </div>
+
+                <div class="kpi-grid">
+
+                    <div>
+                        <label>Target (Cr)</label>
+                        <input
+                            type="number"
+                            id="salesOtherTarget"
+                            placeholder="0.00"
+                            min="0"
+                            step="0.01"
+                        >
+                    </div>
+
+                    <div>
+                        <label>Achievement (Cr)</label>
+                        <input
+                            type="number"
+                            id="salesOtherAchievement"
+                            placeholder="0.00"
+                            min="0"
+                            step="0.01"
+                        >
+                    </div>
+
+                </div>
+
+                <div class="kpi-output">
+
+                    <div class="output-box">
+                        <span>Achievement %</span>
+                        <strong id="salesOtherPercent">0%</strong>
+                    </div>
+
+                    <div class="output-box highlight">
+                        <span>Incentive Payout</span>
+                        <strong id="salesOtherPayout">₹0</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- MARKETING SECTION -->
+    <div id="marketingSection" class="section-hidden">
+
+        <div class="card">
+
+            <div class="card-title">Marketing KPIs</div>
+
+            <div class="section-note">
+                Enter liquidation Target and Achievement values in <strong>₹ Crore (Cr)</strong>.
+                Marketing Activities should be entered as a number/count.
+            </div>
+
+
+            <!-- MARKETING ACTIVITIES -->
+            <div class="kpi-card">
+
+                <div class="kpi-header">
+                    <div class="kpi-name">Marketing Activities</div>
+                    <div class="weight-badge">10%</div>
+                </div>
+
+                <div class="kpi-grid">
+
+                    <div>
+                        <label>Target</label>
+                        <input
+                            type="number"
+                            id="marketingActivitiesTarget"
+                            placeholder="0"
+                            min="0"
+                            step="1"
+                        >
+                    </div>
+
+                    <div>
+                        <label>Achievement</label>
+                        <input
+                            type="number"
+                            id="marketingActivitiesAchievement"
+                            placeholder="0"
+                            min="0"
+                            step="1"
+                        >
+                    </div>
+
+                </div>
+
+                <div class="kpi-output">
+
+                    <div class="output-box">
+                        <span>Achievement %</span>
+                        <strong id="marketingActivitiesPercent">0%</strong>
+                    </div>
+
+                    <div class="output-box highlight">
+                        <span>Incentive Payout</span>
+                        <strong id="marketingActivitiesPayout">₹0</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- MARKETING NPI -->
+            <div class="kpi-card">
+
+                <div class="kpi-header">
+                    <div class="kpi-name">NPI Liquidation</div>
+                    <div class="weight-badge">50%</div>
+                </div>
+
+                <div class="kpi-grid">
+
+                    <div>
+                        <label>Target (Cr)</label>
+                        <input
+                            type="number"
+                            id="marketingNPITarget"
+                            placeholder="0.00"
+                            min="0"
+                            step="0.01"
+                        >
+                    </div>
+
+                    <div>
+                        <label>Achievement (Cr)</label>
+                        <input
+                            type="number"
+                            id="marketingNPIAchievement"
+                            placeholder="0.00"
+                            min="0"
+                            step="0.01"
+                        >
+                    </div>
+
+                </div>
+
+                <div class="kpi-output">
+
+                    <div class="output-box">
+                        <span>Achievement %</span>
+                        <strong id="marketingNPIPercent">0%</strong>
+                    </div>
+
+                    <div class="output-box highlight">
+                        <span>Incentive Payout</span>
+                        <strong id="marketingNPIPayout">₹0</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PHB -->
+            <div class="kpi-card">
+
+                <div class="kpi-header">
+                    <div class="kpi-name">PHB Liquidation</div>
+                    <div class="weight-badge">10%</div>
+                </div>
+
+                <div class="kpi-grid">
+
+                    <div>
+                        <label>Target (Cr)</label>
+                        <input
+                            type="number"
+                            id="marketingPHBTarget"
+                            placeholder="0.00"
+                            min="0"
+                            step="0.01"
+                        >
+                    </div>
+
+                    <div>
+                        <label>Achievement (Cr)</label>
+                        <input
+                            type="number"
+                            id="marketingPHBAchievement"
+                            placeholder="0.00"
+                            min="0"
+                            step="0.01"
+                        >
+                    </div>
+
+                </div>
+
+                <div class="kpi-output">
+
+                    <div class="output-box">
+                        <span>Achievement %</span>
+                        <strong id="marketingPHBPercent">0%</strong>
+                    </div>
+
+                    <div class="output-box highlight">
+                        <span>Incentive Payout</span>
+                        <strong id="marketingPHBPayout">₹0</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- MARKETING OTHER -->
+            <div class="kpi-card">
+
+                <div class="kpi-header">
+                    <div class="kpi-name">Other Products Liquidation</div>
+                    <div class="weight-badge">30%</div>
+                </div>
+
+                <div class="kpi-grid">
+
+                    <div>
+                        <label>Target (Cr)</label>
+                        <input
+                            type="number"
+                            id="marketingOtherTarget"
+                            placeholder="0.00"
+                            min="0"
+                            step="0.01"
+                        >
+                    </div>
+
+                    <div>
+                        <label>Achievement (Cr)</label>
+                        <input
+                            type="number"
+                            id="marketingOtherAchievement"
+                            placeholder="0.00"
+                            min="0"
+                            step="0.01"
+                        >
+                    </div>
+
+                </div>
+
+                <div class="kpi-output">
+
+                    <div class="output-box">
+                        <span>Achievement %</span>
+                        <strong id="marketingOtherPercent">0%</strong>
+                    </div>
+
+                    <div class="output-box highlight">
+                        <span>Incentive Payout</span>
+                        <strong id="marketingOtherPayout">₹0</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- FINAL RESULT -->
+    <div class="result-card">
+
+        <h2>🎉 Congratulations!</h2>
+
+        <p id="congratulationMessage">
+            Enter employee details and KPI performance to calculate the incentive.
+        </p>
+
+        <div class="final-incentive">
+
+            <span>Final Incentive</span>
+
+            <strong id="finalIncentive">
+                ₹0
+            </strong>
+
+        </div>
+
+        <div class="result-grid">
+
+            <div class="result-small">
+                <span>9 Month SIP</span>
+                <strong id="resultNineMonthSIP">₹0</strong>
+            </div>
+
+            <div class="result-small">
+                <span>Overall Multiplier</span>
+                <strong id="overallMultiplier">0X</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ACTIONS -->
     <div class="actions">
 
         <button
@@ -1081,36 +896,40 @@
             class="btn-print"
             onclick="window.print()"
         >
-            🖨 Print / Save PDF
+            Print / Save PDF
         </button>
 
     </div>
 
-</main>
+    <div class="footer">
+        SIT Incentive Calculator | April – December
+    </div>
+
+</div>
 
 
 <script>
 
-/* ============================================================
-   BASIC HELPERS
-   ============================================================ */
-
-const $ = id => document.getElementById(id);
-
+/* =========================================================
+   NUMBER / FORMATTING HELPERS
+========================================================= */
 
 function numberValue(id) {
+    const element = document.getElementById(id);
 
-    const value = parseFloat($(id).value);
+    if (!element) {
+        return 0;
+    }
 
-    return Number.isFinite(value) && value >= 0
-        ? value
-        : 0;
+    const value = parseFloat(element.value);
+
+    return isNaN(value) ? 0 : value;
 }
 
 
 function formatRupees(value) {
 
-    if (!Number.isFinite(value)) {
+    if (!isFinite(value)) {
         value = 0;
     }
 
@@ -1124,7 +943,7 @@ function formatRupees(value) {
 
 function formatPercent(value) {
 
-    if (!Number.isFinite(value)) {
+    if (!isFinite(value)) {
         value = 0;
     }
 
@@ -1134,43 +953,59 @@ function formatPercent(value) {
 
 function formatMultiplier(value) {
 
-    if (!Number.isFinite(value)) {
+    if (!isFinite(value)) {
         value = 0;
     }
 
-    if (value === 0) {
-        return "0X";
-    }
-
-    if (Number.isInteger(value)) {
-        return value + "X";
-    }
-
-    return value
-        .toFixed(2)
-        .replace(/0+$/, "")
-        .replace(/\.$/, "") + "X";
+    return value.toFixed(2) + "X";
 }
 
 
-/* ============================================================
-   MATRIX LOOKUP
-   ============================================================ */
+/* =========================================================
+   9 MONTH SIP
+========================================================= */
+
+function calculateNineMonthSIP() {
+
+    const annualSIP = numberValue("annualSIP");
+
+    const nineMonthSIP = annualSIP * 9 / 12;
+
+    document.getElementById("annualSIPDisplay").textContent =
+        formatRupees(annualSIP);
+
+    document.getElementById("nineMonthSIPDisplay").textContent =
+        formatRupees(nineMonthSIP);
+
+    document.getElementById("resultNineMonthSIP").textContent =
+        formatRupees(nineMonthSIP);
+
+    return nineMonthSIP;
+}
+
+
+/* =========================================================
+   MULTIPLIER LOOKUP
+========================================================= */
 
 function getMultiplier(achievementPercent, matrix) {
 
-    if (!Number.isFinite(achievementPercent)) {
-        return 0;
-    }
+    /*
+        Matrix format:
 
-    const sortedMatrix = [...matrix].sort(
-        (a, b) => b.threshold - a.threshold
-    );
+        [
+            { threshold: 117, multiplier: 3 },
+            { threshold: 113, multiplier: 2.5 },
+            ...
+        ]
 
-    for (const row of sortedMatrix) {
+        Thresholds are checked from highest to lowest.
+    */
 
-        if (achievementPercent >= row.threshold) {
-            return row.multiplier;
+    for (let i = 0; i < matrix.length; i++) {
+
+        if (achievementPercent >= matrix[i].threshold) {
+            return matrix[i].multiplier;
         }
 
     }
@@ -1179,11 +1014,11 @@ function getMultiplier(achievementPercent, matrix) {
 }
 
 
-/* ============================================================
+/* =========================================================
    SALES MATRICES
-   ============================================================ */
+========================================================= */
 
-const SALES_COLLECTION_SBU = [
+const salesCollectionSBUMatrix = [
     { threshold: 117, multiplier: 3 },
     { threshold: 113, multiplier: 2.5 },
     { threshold: 110, multiplier: 2 },
@@ -1194,7 +1029,7 @@ const SALES_COLLECTION_SBU = [
 ];
 
 
-const SALES_COLLECTION_ZONE = [
+const salesCollectionZoneMatrix = [
     { threshold: 117, multiplier: 6 },
     { threshold: 113, multiplier: 5 },
     { threshold: 110, multiplier: 4 },
@@ -1205,7 +1040,7 @@ const SALES_COLLECTION_ZONE = [
 ];
 
 
-const SALES_NPI_SBU = [
+const salesNPISBUMatrix = [
     { threshold: 102, multiplier: 3 },
     { threshold: 93, multiplier: 2.5 },
     { threshold: 79, multiplier: 2 },
@@ -1216,7 +1051,7 @@ const SALES_NPI_SBU = [
 ];
 
 
-const SALES_NPI_ZONE = [
+const salesNPIZoneMatrix = [
     { threshold: 102, multiplier: 6 },
     { threshold: 93, multiplier: 5 },
     { threshold: 79, multiplier: 4 },
@@ -1227,7 +1062,7 @@ const SALES_NPI_ZONE = [
 ];
 
 
-const SALES_OTHER_SBU = [
+const salesOtherSBUMatrix = [
     { threshold: 111, multiplier: 3 },
     { threshold: 105, multiplier: 2.5 },
     { threshold: 99, multiplier: 2 },
@@ -1238,7 +1073,7 @@ const SALES_OTHER_SBU = [
 ];
 
 
-const SALES_OTHER_ZONE = [
+const salesOtherZoneMatrix = [
     { threshold: 111, multiplier: 6 },
     { threshold: 105, multiplier: 5 },
     { threshold: 99, multiplier: 4 },
@@ -1249,11 +1084,11 @@ const SALES_OTHER_ZONE = [
 ];
 
 
-/* ============================================================
+/* =========================================================
    MARKETING MATRICES
-   ============================================================ */
+========================================================= */
 
-const MARKETING_ACTIVITIES = [
+const marketingActivitiesMatrix = [
     { threshold: 110, multiplier: 1.5 },
     { threshold: 105, multiplier: 1.25 },
     { threshold: 100, multiplier: 1 },
@@ -1261,7 +1096,7 @@ const MARKETING_ACTIVITIES = [
 ];
 
 
-const MARKETING_NPI_SBU = [
+const marketingNPISBMatrix = [
     { threshold: 102, multiplier: 3 },
     { threshold: 93, multiplier: 2.5 },
     { threshold: 79, multiplier: 2 },
@@ -1272,7 +1107,7 @@ const MARKETING_NPI_SBU = [
 ];
 
 
-const MARKETING_NPI_ZONE = [
+const marketingNPIZoneMatrix = [
     { threshold: 102, multiplier: 6 },
     { threshold: 93, multiplier: 5 },
     { threshold: 79, multiplier: 4 },
@@ -1283,7 +1118,7 @@ const MARKETING_NPI_ZONE = [
 ];
 
 
-const MARKETING_PHB_SBU = [
+const marketingPHBSBMatrix = [
     { threshold: 114, multiplier: 3 },
     { threshold: 92, multiplier: 2.5 },
     { threshold: 76, multiplier: 2 },
@@ -1294,7 +1129,7 @@ const MARKETING_PHB_SBU = [
 ];
 
 
-const MARKETING_PHB_ZONE = [
+const marketingPHBZoneMatrix = [
     { threshold: 114, multiplier: 6 },
     { threshold: 92, multiplier: 5 },
     { threshold: 76, multiplier: 4 },
@@ -1305,7 +1140,7 @@ const MARKETING_PHB_ZONE = [
 ];
 
 
-const MARKETING_OTHER_SBU = [
+const marketingOtherSBUMatrix = [
     { threshold: 110, multiplier: 3 },
     { threshold: 106, multiplier: 2.5 },
     { threshold: 102, multiplier: 2 },
@@ -1316,7 +1151,7 @@ const MARKETING_OTHER_SBU = [
 ];
 
 
-const MARKETING_OTHER_ZONE = [
+const marketingOtherZoneMatrix = [
     { threshold: 110, multiplier: 6 },
     { threshold: 106, multiplier: 5 },
     { threshold: 102, multiplier: 4 },
@@ -1327,466 +1162,521 @@ const MARKETING_OTHER_ZONE = [
 ];
 
 
-/* ============================================================
+/* =========================================================
+   SELECT MATRIX BASED ON HIERARCHY
+========================================================= */
+
+function hierarchyUsesZoneMatrix() {
+
+    const hierarchy = document.getElementById("hierarchy").value;
+
+    return (
+        hierarchy === "Zone" ||
+        hierarchy === "Region" ||
+        hierarchy === "Territory"
+    );
+}
+
+
+/* =========================================================
    KPI CALCULATION
-   ============================================================ */
+========================================================= */
 
 function calculateKPI(
     target,
     achievement,
     weightage,
-    matrix
+    matrix,
+    nineMonthSIP
 ) {
 
     let achievementPercent = 0;
 
     if (target > 0) {
-        achievementPercent =
-            (achievement / target) * 100;
+        achievementPercent = (achievement / target) * 100;
     }
 
-    let multiplier =
-        getMultiplier(
-            achievementPercent,
-            matrix
-        );
+    let multiplier = getMultiplier(
+        achievementPercent,
+        matrix
+    );
 
     /*
-       Less than 0.8X = No Incentive
+        If multiplier is below 0.8X,
+        no incentive is payable.
     */
 
     if (multiplier < 0.8) {
         multiplier = 0;
     }
 
-    const annualSip =
-        numberValue("annualSip");
-
-    const nineMonthSip =
-        annualSip * 9 / 12;
-
-    /*
-       Weightage and SIP allocation remain
-       backend-only.
-    */
-
-    const allocation =
-        nineMonthSip * weightage;
+    const sipAllocation =
+        nineMonthSIP * weightage;
 
     const payout =
-        allocation * multiplier;
+        sipAllocation * multiplier;
 
     return {
         achievementPercent,
         multiplier,
-        allocation,
+        sipAllocation,
         payout
     };
 }
 
 
-/* ============================================================
-   UPDATE KPI DISPLAY
-   ============================================================ */
+/* =========================================================
+   UPDATE KPI UI
+========================================================= */
 
-function updateKPIOutput(prefix, result) {
+function updateKPIOutput(
+    percentId,
+    payoutId,
+    result
+) {
 
-    $(prefix + "Pct").textContent =
-        formatPercent(
-            result.achievementPercent
-        );
+    document.getElementById(percentId).textContent =
+        formatPercent(result.achievementPercent);
 
-    $(prefix + "Payout").textContent =
-        formatRupees(
-            result.payout
-        );
+    document.getElementById(payoutId).textContent =
+        formatRupees(result.payout);
 }
 
 
-/* ============================================================
+/* =========================================================
    SALES CALCULATION
-   ============================================================ */
+========================================================= */
 
-function calculateSales() {
+function calculateSales(nineMonthSIP) {
 
-    const hierarchy =
-        $("hierarchy").value;
-
-    const isZone =
-        hierarchy === "zone";
+    const useZoneMatrix =
+        hierarchyUsesZoneMatrix();
 
 
     const collectionMatrix =
-        isZone
-        ? SALES_COLLECTION_ZONE
-        : SALES_COLLECTION_SBU;
+        useZoneMatrix
+            ? salesCollectionZoneMatrix
+            : salesCollectionSBUMatrix;
 
 
     const npiMatrix =
-        isZone
-        ? SALES_NPI_ZONE
-        : SALES_NPI_SBU;
+        useZoneMatrix
+            ? salesNPIZoneMatrix
+            : salesNPISBMatrix;
 
 
     const otherMatrix =
-        isZone
-        ? SALES_OTHER_ZONE
-        : SALES_OTHER_SBU;
+        useZoneMatrix
+            ? salesOtherZoneMatrix
+            : salesOtherSBUMatrix;
 
 
-    const collection =
-        calculateKPI(
-            numberValue("salesCollectionTarget"),
-            numberValue("salesCollectionAchievement"),
-            0.40,
-            collectionMatrix
-        );
+    /* COLLECTION */
 
+    const collection = calculateKPI(
 
-    const npi =
-        calculateKPI(
-            numberValue("salesNpiTarget"),
-            numberValue("salesNpiAchievement"),
-            0.20,
-            npiMatrix
-        );
+        numberValue("salesCollectionTarget"),
 
+        numberValue("salesCollectionAchievement"),
 
-    const other =
-        calculateKPI(
-            numberValue("salesOtherTarget"),
-            numberValue("salesOtherAchievement"),
-            0.40,
-            otherMatrix
-        );
+        0.40,
+
+        collectionMatrix,
+
+        nineMonthSIP
+
+    );
 
 
     updateKPIOutput(
-        "salesCollection",
+        "salesCollectionPercent",
+        "salesCollectionPayout",
         collection
     );
 
 
+    /* NPI */
+
+    const npi = calculateKPI(
+
+        numberValue("salesNPITarget"),
+
+        numberValue("salesNPIAchievement"),
+
+        0.20,
+
+        npiMatrix,
+
+        nineMonthSIP
+
+    );
+
+
     updateKPIOutput(
-        "salesNpi",
+        "salesNPIPercent",
+        "salesNPIPayout",
         npi
     );
 
 
+    /* OTHER PRODUCTS */
+
+    const other = calculateKPI(
+
+        numberValue("salesOtherTarget"),
+
+        numberValue("salesOtherAchievement"),
+
+        0.40,
+
+        otherMatrix,
+
+        nineMonthSIP
+
+    );
+
+
     updateKPIOutput(
-        "salesOther",
+        "salesOtherPercent",
+        "salesOtherPayout",
         other
     );
 
 
-    return (
+    const totalPayout =
         collection.payout +
         npi.payout +
-        other.payout
-    );
+        other.payout;
+
+
+    return totalPayout;
 }
 
 
-/* ============================================================
+/* =========================================================
    MARKETING CALCULATION
-   ============================================================ */
+========================================================= */
 
-function calculateMarketing() {
+function calculateMarketing(nineMonthSIP) {
 
-    const hierarchy =
-        $("hierarchy").value;
-
-    const isZone =
-        hierarchy === "zone";
+    const useZoneMatrix =
+        hierarchyUsesZoneMatrix();
 
 
     const npiMatrix =
-        isZone
-        ? MARKETING_NPI_ZONE
-        : MARKETING_NPI_SBU;
+        useZoneMatrix
+            ? marketingNPIZoneMatrix
+            : marketingNPISBMatrix;
 
 
     const phbMatrix =
-        isZone
-        ? MARKETING_PHB_ZONE
-        : MARKETING_PHB_SBU;
+        useZoneMatrix
+            ? marketingPHBZoneMatrix
+            : marketingPHBSBMatrix;
 
 
     const otherMatrix =
-        isZone
-        ? MARKETING_OTHER_ZONE
-        : MARKETING_OTHER_SBU;
+        useZoneMatrix
+            ? marketingOtherZoneMatrix
+            : marketingOtherSBUMatrix;
 
 
-    const activities =
-        calculateKPI(
-            numberValue("marketingActivitiesTarget"),
-            numberValue("marketingActivitiesAchievement"),
-            0.10,
-            MARKETING_ACTIVITIES
-        );
+    /* MARKETING ACTIVITIES */
 
+    const activities = calculateKPI(
 
-    const npi =
-        calculateKPI(
-            numberValue("marketingNpiTarget"),
-            numberValue("marketingNpiAchievement"),
-            0.50,
-            npiMatrix
-        );
+        numberValue("marketingActivitiesTarget"),
 
+        numberValue("marketingActivitiesAchievement"),
 
-    const phb =
-        calculateKPI(
-            numberValue("marketingPhbTarget"),
-            numberValue("marketingPhbAchievement"),
-            0.10,
-            phbMatrix
-        );
+        0.10,
 
+        marketingActivitiesMatrix,
 
-    const other =
-        calculateKPI(
-            numberValue("marketingOtherTarget"),
-            numberValue("marketingOtherAchievement"),
-            0.30,
-            otherMatrix
-        );
+        nineMonthSIP
+
+    );
 
 
     updateKPIOutput(
-        "marketingActivities",
+        "marketingActivitiesPercent",
+        "marketingActivitiesPayout",
         activities
     );
 
 
+    /* NPI */
+
+    const npi = calculateKPI(
+
+        numberValue("marketingNPITarget"),
+
+        numberValue("marketingNPIAchievement"),
+
+        0.50,
+
+        npiMatrix,
+
+        nineMonthSIP
+
+    );
+
+
     updateKPIOutput(
-        "marketingNpi",
+        "marketingNPIPercent",
+        "marketingNPIPayout",
         npi
     );
 
 
+    /* PHB */
+
+    const phb = calculateKPI(
+
+        numberValue("marketingPHBTarget"),
+
+        numberValue("marketingPHBAchievement"),
+
+        0.10,
+
+        phbMatrix,
+
+        nineMonthSIP
+
+    );
+
+
     updateKPIOutput(
-        "marketingPhb",
+        "marketingPHBPercent",
+        "marketingPHBPayout",
         phb
     );
 
 
+    /* OTHER PRODUCTS */
+
+    const other = calculateKPI(
+
+        numberValue("marketingOtherTarget"),
+
+        numberValue("marketingOtherAchievement"),
+
+        0.30,
+
+        otherMatrix,
+
+        nineMonthSIP
+
+    );
+
+
     updateKPIOutput(
-        "marketingOther",
+        "marketingOtherPercent",
+        "marketingOtherPayout",
         other
     );
 
 
-    return (
+    const totalPayout =
         activities.payout +
         npi.payout +
         phb.payout +
-        other.payout
-    );
+        other.payout;
+
+
+    return totalPayout;
 }
 
 
-/* ============================================================
+/* =========================================================
    MAIN CALCULATION
-   ============================================================ */
+========================================================= */
 
 function calculate() {
 
-    const annualSip =
-        numberValue("annualSip");
-
-
-    const nineMonthSip =
-        annualSip * 9 / 12;
-
-
-    $("nineMonthSip").value =
-        formatRupees(
-            nineMonthSip
-        );
-
-
-    $("summaryNineMonthSip").textContent =
-        formatRupees(
-            nineMonthSip
-        );
+    const nineMonthSIP =
+        calculateNineMonthSIP();
 
 
     const role =
-        $("roleType").value;
+        document.getElementById("roleType").value;
 
 
     let totalPayout = 0;
 
 
-    if (role === "sales") {
+    if (role === "Sales") {
 
         totalPayout =
-            calculateSales();
+            calculateSales(nineMonthSIP);
 
-    }
-    else if (role === "marketing") {
+    } else {
 
         totalPayout =
-            calculateMarketing();
+            calculateMarketing(nineMonthSIP);
 
     }
-
-
-    $("totalIncentive").textContent =
-        formatRupees(
-            totalPayout
-        );
 
 
     /*
-       Overall multiplier =
-       Total payout / 9-month SIP
+        Overall Multiplier =
+        Total Payout / 9 Month SIP
     */
 
     let overallMultiplier = 0;
 
-    if (nineMonthSip > 0) {
+    if (nineMonthSIP > 0) {
 
         overallMultiplier =
-            totalPayout /
-            nineMonthSip;
-    }
-
-
-    $("overallMultiplier").textContent =
-        formatMultiplier(
-            overallMultiplier
-        );
-
-
-    /* ==============================
-       CONGRATULATIONS MESSAGE
-       ============================== */
-
-    const name =
-        $("employeeName").value.trim();
-
-
-    if (totalPayout > 0) {
-
-        $("congratsMessage").textContent =
-            "🎉 Congratulations!";
-
-        $("resultName").textContent =
-            name
-            ? name + ", your estimated incentive is ready."
-            : "Your estimated incentive is ready.";
-
-        $("noIncentiveMessage")
-            .classList.add("hidden");
+            totalPayout / nineMonthSIP;
 
     }
-    else {
 
-        $("congratsMessage").textContent =
-            "📊 Incentive Summary";
 
-        $("resultName").textContent =
-            name
-            ? name + ", complete your KPI inputs to calculate the incentive."
-            : "Complete your KPI inputs to calculate the incentive.";
+    document.getElementById("finalIncentive").textContent =
+        formatRupees(totalPayout);
 
-        $("noIncentiveMessage")
-            .classList.add("hidden");
+
+    document.getElementById("overallMultiplier").textContent =
+        formatMultiplier(overallMultiplier);
+
+
+    const employeeName =
+        document.getElementById("employeeName").value.trim();
+
+
+    if (employeeName) {
+
+        document.getElementById("congratulationMessage").textContent =
+            "Congratulations, " +
+            employeeName +
+            "! Your calculated SIT incentive is shown below.";
+
+    } else {
+
+        document.getElementById("congratulationMessage").textContent =
+            "Enter employee details and KPI performance to calculate the incentive.";
+
     }
+
 }
 
 
-/* ============================================================
+/* =========================================================
    ROLE VISIBILITY
-   ============================================================ */
+========================================================= */
 
 function updateRoleVisibility() {
 
     const role =
-        $("roleType").value;
+        document.getElementById("roleType").value;
 
 
-    $("salesSection")
-        .classList.toggle(
-            "hidden",
-            role !== "sales"
-        );
+    if (role === "Sales") {
 
+        document.getElementById("salesSection")
+            .classList.remove("section-hidden");
 
-    $("marketingSection")
-        .classList.toggle(
-            "hidden",
-            role !== "marketing"
-        );
+        document.getElementById("marketingSection")
+            .classList.add("section-hidden");
+
+    } else {
+
+        document.getElementById("salesSection")
+            .classList.add("section-hidden");
+
+        document.getElementById("marketingSection")
+            .classList.remove("section-hidden");
+
+    }
 
 
     calculate();
 }
 
 
-/* ============================================================
+/* =========================================================
    RESET
-   ============================================================ */
+========================================================= */
 
 function resetCalculator() {
 
-    document.querySelectorAll(
-        "input"
-    ).forEach(input => {
+    const inputs =
+        document.querySelectorAll("input");
 
-        if (!input.readOnly) {
-            input.value = "";
-        }
+
+    inputs.forEach(function(input) {
+
+        input.value = "";
 
     });
 
 
-    $("roleType").value = "";
-    $("hierarchy").value = "";
+    document.getElementById("roleType").value =
+        "Sales";
+
+
+    document.getElementById("hierarchy").value =
+        "SBU";
+
 
     updateRoleVisibility();
 
-    calculate();
+
+    document.getElementById("annualSIPDisplay").textContent =
+        "₹0";
+
+
+    document.getElementById("nineMonthSIPDisplay").textContent =
+        "₹0";
+
+
+    document.getElementById("resultNineMonthSIP").textContent =
+        "₹0";
+
+
+    document.getElementById("finalIncentive").textContent =
+        "₹0";
+
+
+    document.getElementById("overallMultiplier").textContent =
+        "0X";
+
+
+    document.getElementById("congratulationMessage").textContent =
+        "Enter employee details and KPI performance to calculate the incentive.";
+
 }
 
 
-/* ============================================================
+/* =========================================================
    EVENT LISTENERS
-   ============================================================ */
+========================================================= */
 
-$("roleType").addEventListener(
-    "change",
-    updateRoleVisibility
-);
+document.addEventListener("DOMContentLoaded", function() {
 
-
-$("hierarchy").addEventListener(
-    "change",
-    calculate
-);
+    const inputs =
+        document.querySelectorAll("input");
 
 
-document.querySelectorAll(
-    "input"
-).forEach(input => {
+    inputs.forEach(function(input) {
 
-    input.addEventListener(
-        "input",
-        calculate
-    );
+        input.addEventListener("input", calculate);
+
+    });
+
+
+    document.getElementById("roleType")
+        .addEventListener("change", updateRoleVisibility);
+
+
+    document.getElementById("hierarchy")
+        .addEventListener("change", calculate);
+
+
+    updateRoleVisibility();
 
 });
-
-
-/* ============================================================
-   INITIALIZE
-   ============================================================ */
-
-updateRoleVisibility();
-calculate();
 
 </script>
 
